@@ -1,37 +1,18 @@
-Gannon Toolkit Library (gkit\_lib)
-==================================
+Gannon Toolkit Library - Utilities (gkit\_utils)
+================================================
 
 |Build Status|
 
-| Written by Zachary Gannon.
-| Adapted from Tkinter/Tcl 8.5 widgets.
+Written by Zachary Gannon.
 
 --------------
 
 DESCRIPTION:
 ------------
 
-| This repository is a collection of complex widgets created by
-  combining Tkinter/Tcl widgets
-| as well as utility methods to improve common tasks like printing with
-  timestamps and tags,
+| This repository is a collection of utility methods to improve or
+  simplify common tasks like printing with timestamps and tags,
 | connecting to IBM DB2 tables, and reading ini config files.
-
---------------
-
-WIDGETS:
---------
-
-You can find all of the widgets availabe under the ``/gkit/widgets``
-directory.
-
---------------
-
-UTILITIES:
-----------
-
-You can find all of the widgets availabe under the ``/gkit/utils``
-directory.
 
 --------------
 
@@ -47,5 +28,5 @@ KNOWN BUGS:
 
 TODO (testing)
 
-.. |Build Status| image:: https://travis-ci.org/Gannon93/gkit_lib.svg?branch=feature%2Fgkit_utils
-   :target: https://travis-ci.org/Gannon93/gkit_lib
+.. |Build Status| image:: https://travis-ci.org/gannon93/gkit_utils.svg?branch=master
+   :target: https://travis-ci.org/gannon93/gkit_lib
