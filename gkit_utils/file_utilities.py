@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 import os
 import errno
 import csv
-
+import fileinput
 import json
 
 from collections import OrderedDict
@@ -30,7 +30,7 @@ def mkdir_p(path):
 ########################################################################
 
 def read(file_path, **kwargs):
-    return(read_file(file_path, **kwargs))
+    return read_file(file_path, **kwargs)
 
 
 def read_file(file_path, **kwargs):
@@ -128,10 +128,10 @@ def write_csv(file_path, rows):
             stripped_row = {
                 k: (
                     v.strip()
-                    if isinstance(v, basestring)
+                    if isinstance(v, str)
                     else v
                 )
-                for k, v in row.iteritems()
+                for k, v in row.items()
             }
             writer.writerow(stripped_row)
 
@@ -160,7 +160,7 @@ def format_dictionary_from_file(in_dict, base_path):
 def format_dictionary(in_dict, base_dict):
     return_dict = {}
 
-    for key, val in base_dict.iteritems():
+    for key, val in base_dict.items():
         if '$' in key:
             key = key[1:]
             new_key = in_dict[key]
@@ -179,6 +179,25 @@ def format_list_of_dicts(in_dict_list, base_dict):
     for in_dict in in_dict_list:
         return_list.append(format_dictionary(in_dict, base_dict))
     return return_list
+
+
+def batch_prepend_headings(basedir, head_list, delim=','):
+    for base_file in os.listdir(basedir):
+        prepend_headings(os.path.join(basedir, base_file), head_list, delim)
+
+
+def prepend_headings(base_file, head_list, delim=','):
+    headers = delim.join(head_list)
+    if os.path.exists(base_file):
+        for line in fileinput.input(files=[base_file], inplace=True):
+            if fileinput.isfirstline() and headers not in line:
+                print(headers)
+
+
+def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
+    if os.path.exists(base_file):
+        for line in fileinput.input(files=[base_file], inplace=True):
+            print(line[:-1].replace(old_delimiter, new_delimiter))
 
 
 ########################################################################
