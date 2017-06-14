@@ -8,7 +8,6 @@ import json
 
 from collections import OrderedDict
 
-
 ########################################################################
 # Public general file util methods
 ########################################################################
@@ -28,6 +27,7 @@ def mkdir_p(path):
 ########################################################################
 # Read methods
 ########################################################################
+
 
 def read(file_path, **kwargs):
     return read_file(file_path, **kwargs)
@@ -126,11 +126,7 @@ def write_csv(file_path, rows):
         writer.writeheader()
         for row in rows:
             stripped_row = {
-                k: (
-                    v.strip()
-                    if isinstance(v, str)
-                    else v
-                )
+                k: (v.strip() if isinstance(v, str) else v)
                 for k, v in row.items()
             }
             writer.writerow(stripped_row)

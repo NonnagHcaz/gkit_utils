@@ -26,10 +26,7 @@ def timeit(func=None, *args):
     display_divider()
     display_message('PROGRAM ENDED.', post='\n')
     print(
-        'Elapsed:\n\t{} s\n\n\n'.format(
-            t_utils.elapsed(start_time, end_time)
-        )
-    )
+        'Elapsed:\n\t{} s\n\n\n'.format(t_utils.elapsed(start_time, end_time)))
 
 
 def _display(msg, tag='', cli=True):
@@ -61,8 +58,11 @@ def display_event(msg, tag='EVENT', pre='', post='', cli=True, stamped=True):
     _display(p_msg, tag, cli)
 
 
-def display_success(
-    msg, tag='SUCCESS', pre='', post='\n', cli=True, stamped=True
-):
+def display_success(msg,
+                    tag='SUCCESS',
+                    pre='',
+                    post='\n',
+                    cli=True,
+                    stamped=True):
     p_msg = msg_gen.generate_success(msg, tag, pre, post, stamped)
     _display(p_msg, tag, cli)

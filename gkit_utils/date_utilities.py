@@ -27,15 +27,9 @@ def get_latest_path_and_date(basedir, file_pattern='', delim=''):
         # Get latest file path and date
         for file_name in os.listdir(basedir):
             file_parts = os.path.splitext(file_name)[0].split(delim)
-            if (
-                (
-                    not file_pattern or
-                    (
-                        file_pattern and
-                        file_pattern.upper() in file_name.upper()
-                    )
-                ) and is_date(file_parts[-1])
-            ):
+            if ((not file_pattern or
+                 (file_pattern and file_pattern.upper() in file_name.upper()))
+                    and is_date(file_parts[-1])):
                 test_date = datetime.strptime(file_parts[-1], "%Y%m%d")
                 if test_date > latest_date:
                     latest_date = test_date

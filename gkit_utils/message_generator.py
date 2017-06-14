@@ -29,9 +29,7 @@ def generate_event(msg, tag='EVENT', pre='', post='', stamped=True):
     return generate_message(msg, tag, pre, post, stamped)
 
 
-def generate_success(
-    msg, tag='SUCCESS', pre='', post='\n', stamped=True
-):
+def generate_success(msg, tag='SUCCESS', pre='', post='\n', stamped=True):
     return generate_message(msg, tag, pre, post, stamped)
 
 

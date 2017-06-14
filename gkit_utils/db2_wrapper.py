@@ -9,13 +9,10 @@ try:
     import ibm_db
 except ImportError:
     raise RuntimeError(
-        '\nERROR: ibm_db could not be found.\nTry:\n\tpip install ibm_db'
-    )
+        '\nERROR: ibm_db could not be found.\nTry:\n\tpip install ibm_db')
 
 # Class expects the following dictionary keys when passing connection args
-DB_HEADS = [
-    'DB_NAME', 'DB_HOST', 'DB_PORT', 'DB_PROT', 'DB_UID', 'DB_PWD'
-]
+DB_HEADS = ['DB_NAME', 'DB_HOST', 'DB_PORT', 'DB_PROT', 'DB_UID', 'DB_PWD']
 
 # Class expects the following when using the simplified connection method.
 DB_HEADS_MIN = ['DB_NAME', 'DB_UID', 'DB_PWD']
@@ -28,6 +25,7 @@ class DB2Wrapper():
     Attributes:
         connection (ibm_db.connection): class scoped connection object
     """
+
     def __init__(self, parent, *args, **kwargs):
         self.parent = parent
         self.connection = None
@@ -52,10 +50,9 @@ class DB2Wrapper():
 
         if len(key_diffs) <= 0:
             # Dictionary is valid
-            self.connection = ibm_db.connect(
-                "dsn=" + db_dict['DB_NAME'],
-                db_dict['DB_UID'], db_dict['DB_PWD']
-            )
+            self.connection = ibm_db.connect("dsn=" + db_dict['DB_NAME'],
+                                             db_dict['DB_UID'],
+                                             db_dict['DB_PWD'])
         else:
             # Dictionary is invalid, so print missing expected keys
             print('ERROR: The following fields must be set:')
