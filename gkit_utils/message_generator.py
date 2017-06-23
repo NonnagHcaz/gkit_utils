@@ -14,7 +14,7 @@ def generate_divider(token='*', count=72, pre='\n', post='\n'):
 def generate_message(msg, tag='', pre='', post='', stamped=True):
     if tag and ':' not in tag:
         tag += ': '
-    p_msg = tag + pre + msg + post
+    p_msg = str(tag) + str(pre) + str(msg) + str(post)
     if stamped and t_utils:
         ts = t_utils.get_timestamp()
         p_msg = get_tag_head(ts) + p_msg
@@ -34,8 +34,8 @@ def generate_success(msg, tag='SUCCESS', pre='', post='\n', stamped=True):
 
 
 def get_tag_string(tag_str, tag_open='[', tag_close=']'):
-    return tag_open + tag_str + tag_close
+    return str(tag_open) + str(tag_str) + str(tag_close)
 
 
 def get_tag_head(tag_str, tag_sep=':', tag_open='[', tag_close=']'):
-    return get_tag_string(tag_str, tag_open, tag_close) + tag_sep + ' '
+    return get_tag_string(tag_str, tag_open, tag_close) + str(tag_sep) + ' '
