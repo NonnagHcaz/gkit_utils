@@ -50,7 +50,7 @@ class MessageGeneratorTests(unittest.TestCase):
         post = ']'
         tag = pre + DEFAULT_MSG + post
 
-        msg = mg.generate_success(DEFAULT_MSG, pre=pre, post=post)
+        msg = mg.get_tag_string(DEFAULT_MSG, pre=pre, post=post)
         self.assertEqual(tag, msg)
 
     def test_get_tag_head(self):
