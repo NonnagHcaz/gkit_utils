@@ -26,7 +26,7 @@ def generate_message(msg, tag='', pre='', post='', stamped=True):
     p_msg = str(ftag) + str(pre) + str(msg) + str(post)
     if stamped and t_utils:
         ts = t_utils.get_timestamp()
-        p_msg = get_tag_head(ts) + p_msg
+        p_msg = get_tag_string(ts) + p_msg
     return p_msg
 
 
