@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function
 
 import time
+import sys
 
 try:
     import arcpy
@@ -29,33 +30,56 @@ def timeit(func=None, *args):
         'Elapsed:\n\t{} s\n\n\n'.format(t_utils.elapsed(start_time, end_time)))
 
 
-def _display(msg, tag='', cli=True):
+def _display(msg, tag='', cli=True, out=sys.stdout):
     if arcpy and 'ERROR' in tag.upper():
         arcpy.AddError(msg)
     elif arcpy:
         arcpy.AddMessage(msg)
     elif cli:
-        print(msg)
+        out.write(msg)
 
 
-def display_divider(token='*', count=72, pre='\n', post='\n', cli=True):
+def display_divider(token='*',
+                    count=72,
+                    pre='\n',
+                    post='\n',
+                    cli=True,
+                    out=sys.stdout):
     p_msg = msg_gen.generate_divider(token, count, pre, post)
-    _display(p_msg, '', cli)
+    _display(p_msg, '', cli, out)
 
 
-def display_message(msg, tag='', pre='', post='', cli=True, stamped=True):
+def display_message(msg,
+                    tag='',
+                    pre='',
+                    post='',
+                    cli=True,
+                    stamped=True,
+                    out=sys.stdout):
     p_msg = msg_gen.generate_message(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli)
+    _display(p_msg, tag, cli, out)
 
 
-def display_error(msg, tag='ERROR', pre='', post='', cli=True, stamped=True):
+def display_error(msg,
+                  tag='ERROR',
+                  pre='',
+                  post='',
+                  cli=True,
+                  stamped=True,
+                  out=sys.stdout):
     p_msg = msg_gen.generate_error(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli)
+    _display(p_msg, tag, cli, out)
 
 
-def display_event(msg, tag='EVENT', pre='', post='', cli=True, stamped=True):
+def display_event(msg,
+                  tag='EVENT',
+                  pre='',
+                  post='',
+                  cli=True,
+                  stamped=True,
+                  out=sys.stdout):
     p_msg = msg_gen.generate_event(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli)
+    _display(p_msg, tag, cli, out)
 
 
 def display_success(msg,
@@ -63,6 +87,7 @@ def display_success(msg,
                     pre='',
                     post='\n',
                     cli=True,
-                    stamped=True):
+                    stamped=True,
+                    out=sys.stdout):
     p_msg = msg_gen.generate_success(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli)
+    _display(p_msg, tag, cli, out)
