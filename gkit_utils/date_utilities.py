@@ -8,6 +8,9 @@ from dateutil import parser
 def get_datestamp(ts_to_format=None, format_string="%Y%m%d"):
     if ts_to_format is None:
         ts_to_format = datetime.now()
+    else:
+        if is_date(ts_to_format):
+            ts_to_format = parser.parse(ts_to_format)
     return ts_to_format.strftime(format_string)
 
 

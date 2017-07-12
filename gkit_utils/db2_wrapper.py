@@ -5,11 +5,8 @@
 
 from __future__ import absolute_import, division, print_function
 
-try:
-    import ibm_db
-except ImportError:
-    raise RuntimeError(
-        '\nERROR: ibm_db could not be found.\nTry:\n\tpip install ibm_db')
+import ibm_db
+
 
 # Class expects the following dictionary keys when passing connection args
 DB_HEADS = ['DB_NAME', 'DB_HOST', 'DB_PORT', 'DB_PROT', 'DB_UID', 'DB_PWD']

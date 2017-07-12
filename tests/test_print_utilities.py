@@ -4,16 +4,16 @@ import unittest
 
 try:
     from unittest import mock
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     import mock
 
 try:
     from StringIO import StringIO
-except ImportError:
+except (ImportError, ModuleNotFoundError):
     from io import StringIO
 
 from .context import print_utilities as p_utils
-from .context import time_utilities
+# from .context import time_utilities
 
 DEFAULT_MSG = 'TEST'
 MOCK_TIMESTAMP = '20000101-000000'
@@ -23,15 +23,11 @@ DEFAULT_POST = ']'
 DEFAULT_SEP = ':'
 
 
-def mock_get_timestamp():
-    return MOCK_TIMESTAMP
-
-
 def dummy():
     pass
 
 
-class PrintUtilityTests(unittest.TestCase):
+class PrintUtilitiesTests(unittest.TestCase):
     def setUp(self):
         self.out = StringIO()
 
@@ -88,6 +84,3 @@ class PrintUtilityTests(unittest.TestCase):
             DEFAULT_MSG, post='', out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
-
-if __name__ == '__main__':
-    unittest.main()
