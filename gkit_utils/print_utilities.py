@@ -8,20 +8,16 @@ try:
 except ImportError:
     arcpy = None
 
-try:
-    from . import time_utilities as t_utils
-    from . import message_generator as msg_gen
-except ValueError:
-    import time_utilities as t_utils
-    import message_generator as msg_gen
+from . import time_utilities as t_utils
+from . import message_generator as msg_gen
 
 
 def timeit(func=None, *args, **kwargs):
-    print('\n')
+    out = sys.stdout
     if 'out' in kwargs:
         out = kwargs['out']
-    else:
-        out = sys.stdout
+
+    out.write('\n')
     display_message('PROGRAM STARTED...', post='\n', out=out)
     display_divider(out=out)
     start_time = time.time()

@@ -1,9 +1,6 @@
 from __future__ import absolute_import, print_function
 
-try:
-    from . import time_utilities as t_utils
-except ValueError:
-    import time_utilities as t_utils
+from . import time_utilities as t_utils
 
 
 def generate_divider(token='*', count=72, pre='\n', post='\n'):
