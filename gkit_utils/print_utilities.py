@@ -16,17 +16,21 @@ except ValueError:
     import message_generator as msg_gen
 
 
-def timeit(func=None, *args):
+def timeit(func=None, *args, **kwargs):
     print('\n')
-    display_message('PROGRAM STARTED...', post='\n')
-    display_divider()
+    if 'out' in kwargs:
+        out = kwargs['out']
+    else:
+        out = sys.stdout
+    display_message('PROGRAM STARTED...', post='\n', out=out)
+    display_divider(out=out)
     start_time = time.time()
     if func is not None:
         func(*args)
     end_time = time.time()
-    display_divider()
-    display_message('PROGRAM ENDED.', post='\n')
-    print(
+    display_divider(out=out)
+    display_message('PROGRAM ENDED.', post='\n', out=out)
+    out.write(
         'Elapsed:\n\t{} s\n\n\n'.format(t_utils.elapsed(start_time, end_time)))
 
 

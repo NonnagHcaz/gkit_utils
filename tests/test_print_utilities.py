@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import os
-import sys
 import unittest
 
 try:
@@ -40,9 +38,13 @@ class PrintUtilityTests(unittest.TestCase):
     def tearDown(self):
         del self.out
 
-    def test_timeit(self):
+    @mock.patch(
+        'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
+    def test_timeit(self, mfunc):
+        tag = '[{ts}]PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}]PROGRAM ENDED.\nElapsed:\n\t0.0000 s'.format(ts=MOCK_TIMESTAMP)
         func = dummy
-        p_utils.timeit(func)
+        p_utils.timeit(func, out=self.out)
+        self.assertEqual(tag, self.out.getvalue().strip())
 
     def test_display_divider(self):
         token = '*'
