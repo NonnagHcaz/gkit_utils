@@ -3,17 +3,20 @@ from __future__ import absolute_import, division, print_function
 import unittest
 
 try:
+    # Python 3
     from unittest import mock
 except ImportError:
+    # Python 2
     import mock
 
 try:
+    # Python 2
     from StringIO import StringIO
 except ImportError:
+    # Python 3
     from io import StringIO
 
 from .context import print_utilities as p_utils
-# from .context import time_utilities
 
 DEFAULT_MSG = 'TEST'
 MOCK_TIMESTAMP = '20000101-000000'

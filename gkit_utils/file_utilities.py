@@ -8,8 +8,10 @@ import json
 import warnings
 
 try:
+    # Python 3
     FileNotFoundError
 except NameError:
+    # Python 2
     FileNotFoundError = IOError
 
 from collections import OrderedDict

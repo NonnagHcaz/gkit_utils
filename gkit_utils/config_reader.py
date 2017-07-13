@@ -8,9 +8,11 @@ from __future__ import absolute_import, division, print_function
 import warnings
 
 try:
-    from configparser import ConfigParser
-except ImportError:
+    # Python 2
     from ConfigParser import ConfigParser
+except ImportError:
+    # Python 3
+    from configparser import ConfigParser
 
 
 class ConfigReader():
@@ -83,8 +85,6 @@ class ConfigReader():
         for option in options:
             try:
                 return_dict[option] = self.cparser.get(section, option)
-                if return_dict[option] == -1:
-                    pass
             except Exception as e:
                 return_dict[option] = None
         return return_dict

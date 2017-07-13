@@ -3,20 +3,19 @@ import os
 import shutil
 
 try:
+    # Python 3
     from unittest import mock
-except (ImportError):
+except ImportError:
+    # Python 2
     import mock
 
-
 from .context import file_utilities as f_utils
-
 
 BASEDIR = './tests'
 DATA_DIR = os.path.join(BASEDIR, 'dat')
 
 
 class FileUtilitiesTests(unittest.TestCase):
-
     def setUp(self):
         pass
 
@@ -36,13 +35,9 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_read_json(self):
         test_file = os.path.join(DATA_DIR, 'test_json.json')
         test_json = {
-            "0": [
-                "0", "1", "2"
-            ],
+            "0": ["0", "1", "2"],
             "1": {
-                "0": [
-                    "0", "1", "2"
-                ],
+                "0": ["0", "1", "2"],
                 "1": "0"
             }
         }

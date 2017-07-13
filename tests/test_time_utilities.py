@@ -3,6 +3,9 @@ import datetime
 import time
 
 from .context import time_utilities as t_utils
+from . import mock_dt
+
+MOCK_TIMESTAMP = '2000-01-01 00:00:00'
 
 
 class TimeUtilitiesTests(unittest.TestCase):
@@ -35,6 +38,14 @@ class TimeUtilitiesTests(unittest.TestCase):
         test_str = '2000-01-01 00:00:00'
         orig_str = datetime.datetime.strptime('01/01/2000 00:00:00', orig_fmt)
         self.assertEqual(test_str, t_utils.get_timestamp(orig_str, test_fmt))
+
+    def test_get_timestamp_x_d_y(self):
+        test_fmt = '%Y-%m-%d %H:%M:%S'
+        test_str = '2000-01-01 00:00:00'
+        with mock_dt.mock_datetime_now(
+                datetime.datetime.strptime(test_str, test_fmt), datetime):
+            self.assertEqual(
+                test_str, t_utils.get_timestamp(format_string=test_fmt))
 
     ###########################################################################
     # Unit tests for get_timestamp()
