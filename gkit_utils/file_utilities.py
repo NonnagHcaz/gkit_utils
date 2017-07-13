@@ -70,7 +70,7 @@ def read_json(file_path, encoding='UTF-8', ordered=True):
             kwargs['object_pairs_hook'] = OrderedDict
         with open(file_path, 'r') as fp:
             return_dict = json.load(fp, **kwargs)
-    except (FileNotFoundError, json.decoder.JSONDecodeError) as ex:
+    except (FileNotFoundError, ValueError) as ex:
         warnings.warn(str(ex))
     return return_dict
 
