@@ -5,8 +5,12 @@ import errno
 import csv
 import fileinput
 import json
-
 import warnings
+
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 
 from collections import OrderedDict
 
