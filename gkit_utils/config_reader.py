@@ -5,6 +5,8 @@
 
 from __future__ import absolute_import, division, print_function
 
+import warnings
+
 try:
     from configparser import ConfigParser
 except ImportError:
@@ -40,7 +42,11 @@ class ConfigReader():
 
         # Get only the values we need
         for key in headings:
-            return_dict[key] = section_map[key.lower()]
+            try:
+                return_dict[key] = section_map[key.lower()]
+            except KeyError as ke:
+                warnings.warn(str(ke))
+                return_dict[key] = None
         return return_dict
 
     def load_config(self, filepath):
@@ -78,8 +84,7 @@ class ConfigReader():
             try:
                 return_dict[option] = self.cparser.get(section, option)
                 if return_dict[option] == -1:
-                    print("skip: %s" % option)
+                    pass
             except Exception as e:
-                print("exception on %s!" % option)
                 return_dict[option] = None
         return return_dict
