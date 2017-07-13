@@ -21,11 +21,29 @@ class ConfigReader():
         cparser (ConfigParser): class scoped ConfigParser object
     """
 
-    def __init__(self, parent, *args, **kwargs):
-        self.parent = parent
+    def __init__(self, *args, **kwargs):
         self.cparser = ConfigParser()
 
-    def read_config(self, filepath):
+    def read_config(self, file_path, headings, section=0):
+
+        return_dict = {}
+        self.cparser = ConfigParser()
+
+        # Initialize ConfigReader object
+        self.load_config(file_path)
+
+        # Get sections in config file
+        sections = self.get_sections()
+
+        # Get mapping of specific section
+        section_map = self.read_section_map(sections[section])
+
+        # Get only the values we need
+        for key in headings:
+            return_dict[key] = section_map[key.lower()]
+        return return_dict
+
+    def load_config(self, filepath):
         """Summary
             Method reads and returns the contents of an ini file.
         Args:
