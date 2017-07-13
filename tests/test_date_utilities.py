@@ -1,47 +1,64 @@
 import unittest
+import datetime
 
 from .context import date_utilities as d_utils
 
 
 class DateUtilitiesTests(unittest.TestCase):
-
-
     def setUp(self):
         pass
 
     def tearDown(self):
         pass
 
-    def test_get_datestamp_now_default(self):
-        test_str = '20170712'
+    ###########################################################################
+    # Unit tests for get_datestamp()
+    ###########################################################################
+
+    # Test names are of the format:
+    #   test_<func>_<in_fmt>_<out_fmt>_<date>
+    #
+    # Where:
+    #   <func>      Function name being tested.
+    #                   (get_datestamp)
+    #   <in_fmt>    Date element separator format for input.
+    #                   (s=slash, d=dashed, c=contiguous, x=default)
+    #   <out_fmt>   Date element separator format for output.
+    #                   (s=slash, d=dashed, c=contiguous, x=default)
+    #   <date>      Expected return boolean value.
+    #                   (y=y2k, x=default)
+
+    def test_get_datestamp_x_x_x(self):
+        test_str = datetime.datetime.today().strftime('%Y%m%d')
         self.assertEqual(test_str, d_utils.get_datestamp())
 
-    def test_get_timestamp_now_iso8601(self):
-        test_str = '2017-07-12'
+    def test_get_timestamp_x_d_x(self):
+        test_str = datetime.datetime.today().strftime('%Y-%m-%d')
         format_str = '%Y-%m-%d'
-        self.assertEqual(test_str, d_utils.get_datestamp(format_string=format_str))
+        self.assertEqual(
+            test_str, d_utils.get_datestamp(format_string=format_str))
 
-    def test_get_datestamp_mil_default(self):
+    def test_get_datestamp_d_x_y(self):
         test_str = '20000101'
         orig_str = '2000-01-01'
-        self.assertEquals(test_str, d_utils.get_datestamp(orig_str))
+        self.assertEqual(test_str, d_utils.get_datestamp(orig_str))
 
-    def test_get_datestamp_mil_iso8601(self):
+    def test_get_datestamp_s_d_y(self):
         test_str = '2000-01-01'
-        orig_str = '20000101'
+        orig_str = '01/01/2000'
         format_str = '%Y-%m-%d'
-        self.assertEquals(test_str, d_utils.get_datestamp(orig_str, format_str))
-
+        self.assertEqual(test_str, d_utils.get_datestamp(orig_str, format_str))
 
     ###########################################################################
-    # Method tests for is_date()
+    # Unit tests for is_date()
     ###########################################################################
 
     # Test names are of the format:
     #   test_<func>_<standard>_<format>_<return>_{<bound>}
     #
     # Where:
-    #   <func>      Function name being tested. (is_date)
+    #   <func>      Function name being tested.
+    #                   (is_date)
     #   <standard>  Date standard tested.
     #                   (i=ISO 8601, n=Non-ISO)
     #   <format>    Date element separator format.

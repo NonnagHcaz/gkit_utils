@@ -7,7 +7,7 @@ from __future__ import absolute_import, division, print_function
 
 try:
     from configparser import ConfigParser
-except (ImportError, ModuleNotFoundError):
+except ImportError:
     from ConfigParser import ConfigParser
 
 

@@ -4,12 +4,12 @@ import unittest
 
 try:
     from unittest import mock
-except (ImportError, ModuleNotFoundError):
+except (ImportError):
     import mock
 
 try:
     from StringIO import StringIO
-except (ImportError, ModuleNotFoundError):
+except (ImportError):
     from io import StringIO
 
 from .context import print_utilities as p_utils
@@ -37,7 +37,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_timeit(self, mfunc):
-        tag = '[{ts}]PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}]PROGRAM ENDED.\nElapsed:\n\t0.0000 s'.format(ts=MOCK_TIMESTAMP)
+        tag = '[{ts}]PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}]PROGRAM ENDED.\nElapsed:\n\t0.0000 s'.format(
+            ts=MOCK_TIMESTAMP)
         func = dummy
         p_utils.timeit(func, out=self.out)
         self.assertEqual(tag, self.out.getvalue().strip())
@@ -80,7 +81,5 @@ class PrintUtilitiesTests(unittest.TestCase):
     def test_display_success_no_stamp(self, mfunc):
         tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + DEFAULT_PRE + 'SUCCESS' + DEFAULT_POST + DEFAULT_SEP + ' '
 
-        p_utils.display_success(
-            DEFAULT_MSG, post='', out=self.out)
+        p_utils.display_success(DEFAULT_MSG, post='', out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
-
