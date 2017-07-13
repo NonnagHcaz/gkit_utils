@@ -4,12 +4,12 @@ import unittest
 
 try:
     from unittest import mock
-except (ImportError):
+except ImportError:
     import mock
 
 try:
     from StringIO import StringIO
-except (ImportError):
+except ImportError:
     from io import StringIO
 
 from .context import print_utilities as p_utils

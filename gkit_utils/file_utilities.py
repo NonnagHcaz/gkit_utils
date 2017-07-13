@@ -6,6 +6,8 @@ import csv
 import fileinput
 import json
 
+import warnings
+
 from collections import OrderedDict
 
 ########################################################################
@@ -58,12 +60,14 @@ def read_file(file_path, **kwargs):
 def read_json(file_path, encoding='UTF-8', ordered=True):
     kwargs = {}
     return_dict = {}
-    if os.path.exists(file_path):
+    try:
         kwargs['encoding'] = encoding
         if ordered:
             kwargs['object_pairs_hook'] = OrderedDict
         with open(file_path, 'r') as fp:
             return_dict = json.load(fp, **kwargs)
+    except (FileNotFoundError, json.decoder.JSONDecodeError) as ex:
+        warnings.warn(str(ex))
     return return_dict
 
 
@@ -71,29 +75,32 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
     # [{'r0c1': 'r1c1', 'r0c2': 'r1c2', ... , 'r0cn': 'r1cn'}]
 
     return_list = []
-    with open(file_path, 'r') as fp:
-        row = 0
-        if 'heads_list' in kwargs:
-            heads = kwargs['heads_list']
-        else:
-            heads = []
-        # lines = fp.readlines()
-        for line_in in fp:
-            entry_dict = {}
-            line = line_in.rstrip('\n').split(delimiter)
-            if row <= 0 and headings and not heads:
-                heads = line
+    try:
+        with open(file_path, 'r') as fp:
+            row = 0
+            if 'heads_list' in kwargs:
+                heads = kwargs['heads_list']
             else:
-                col = 0
-                for entry in line:
-                    if heads:
-                        head = heads[col]
-                    else:
-                        head = col
-                    entry_dict[head] = entry
-                    col += 1
-                return_list.append(entry_dict)
-            row += 1
+                heads = []
+            # lines = fp.readlines()
+            for line_in in fp:
+                entry_dict = {}
+                line = line_in.rstrip('\n').split(delimiter)
+                if row <= 0 and headings and not heads:
+                    heads = line
+                else:
+                    col = 0
+                    for entry in line:
+                        if heads:
+                            head = heads[col]
+                        else:
+                            head = col
+                        entry_dict[head] = entry
+                        col += 1
+                    return_list.append(entry_dict)
+                row += 1
+    except FileNotFoundError as ex:
+        warnings.warn(str(ex))
     return return_list
 
 
