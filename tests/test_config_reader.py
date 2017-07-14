@@ -9,9 +9,7 @@ except ImportError:
     import mock
 
 from .context import config_reader
-
-BASEDIR = './tests'
-DATA_DIR = os.path.join(BASEDIR, 'dat')
+from .context import DATA_DIR
 
 
 class ConfigReaderTests(unittest.TestCase):

@@ -10,9 +10,10 @@ except ImportError:
     import mock
 
 from .context import file_utilities as f_utils
+from .context import BASEDIR, DATA_DIR
 
-BASEDIR = './tests'
-DATA_DIR = os.path.join(BASEDIR, 'dat')
+# BASEDIR = './tests'
+# DATA_DIR = os.path.join(BASEDIR, 'dat')
 
 
 class FileUtilitiesTests(unittest.TestCase):

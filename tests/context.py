@@ -11,3 +11,6 @@ from gkit_utils import date_utilities
 from gkit_utils import config_reader
 from gkit_utils import time_utilities
 from gkit_utils import message_generator
+
+BASEDIR = './tests'
+DATA_DIR = os.path.join(BASEDIR, 'dat')
