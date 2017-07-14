@@ -133,11 +133,17 @@ def write_json(file_path, data, mode='w', **kwargs):
 
 
 def write_csv(file_path, rows, mode='w'):
-    with open(file_path, mode, newline='') as fp:
-        writer = csv.DictWriter(fp, fieldnames=rows[0].keys())
-        writer.writeheader()
-        writer.writerows(rows)
-        del writer
+    try:
+        fp = open(file_path, mode, newline='')
+    except TypeError:
+        if 'b' not in mode:
+            mode += 'b'
+        fp = open(file_path, mode)
+    writer = csv.DictWriter(fp, fieldnames=rows[0].keys())
+    writer.writeheader()
+    writer.writerows(rows)
+    del writer
+    fp.close()
 
 
 ########################################################################
