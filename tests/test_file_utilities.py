@@ -109,9 +109,6 @@ class FileUtilitiesTests(unittest.TestCase):
     # Unit tests for read()
     ###########################################################################
 
-    def test_read_as_txt(self):
-
-
     def test_read_as_json(self):
         test_file = os.path.join(DATA_DIR, 'test_json.json')
         self.assertEqual(DEFAULT_JSON, f_utils.read(test_file))
