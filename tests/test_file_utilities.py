@@ -12,7 +12,7 @@ except ImportError:
 from .context import file_utilities as f_utils
 from .context import BASEDIR, DATA_DIR
 
-DEFAULT_TXT = 'Hello, World!\n!dlroW ,olleH'
+DEFAULT_TXT = 'Hello, World!\n!dlroW ,olleH\n'
 
 DEFAULT_JSON = {"0": ["0", "1", "2"], "1": {"0": ["0", "1", "2"], "1": "0"}}
 
@@ -105,9 +105,17 @@ class FileUtilitiesTests(unittest.TestCase):
         test_file = os.path.join(DATA_DIR, 'test_json.json')
         self.assertEqual(DEFAULT_JSON, f_utils.read_file(test_file))
 
+    def test_read_file_as_txt(self):
+        test_file = os.path.join(DATA_DIR, 'test_txt.txt')
+        self.assertEqual(DEFAULT_TXT, f_utils.read_file(test_file))
+
     ###########################################################################
     # Unit tests for read()
     ###########################################################################
+
+    def test_read_as_txt(self):
+        test_file = os.path.join(DATA_DIR, 'test_txt.txt')
+        self.assertEqual(DEFAULT_TXT, f_utils.read(test_file))
 
     def test_read_as_json(self):
         test_file = os.path.join(DATA_DIR, 'test_json.json')
@@ -116,8 +124,7 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_read_as_csv(self):
         test_file = os.path.join(DATA_DIR, 'test_csv_p.csv')
         self.assertEqual(DEFAULT_CSV_Y,
-                         f_utils.read_file(
-                             test_file, headings=True, delimiter='|'))
+                         f_utils.read(test_file, headings=True, delimiter='|'))
 
     ###########################################################################
     ###########################################################################
@@ -144,7 +151,9 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_write_csv(self):
         test_file = os.path.join(DATA_DIR, 'test_csv_write.csv')
         f_utils.write_csv(test_file, DEFAULT_CSV_Y)
-        self.assertEqual(DEFAULT_CSV_Y, f_utils.read_csv(test_file, headings=True, delimiter=','))
+        self.assertEqual(DEFAULT_CSV_Y,
+                         f_utils.read_csv(
+                             test_file, headings=True, delimiter=','))
         os.remove(test_file)
 
     ###########################################################################
@@ -160,5 +169,7 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_write_as_csv(self):
         test_file = os.path.join(DATA_DIR, 'test_csv_write.csv')
         f_utils.write_file(test_file, DEFAULT_CSV_Y)
-        self.assertEqual(DEFAULT_CSV_Y, f_utils.read_csv(test_file, headings=True, delimiter=','))
+        self.assertEqual(DEFAULT_CSV_Y,
+                         f_utils.read_csv(
+                             test_file, headings=True, delimiter=','))
         os.remove(test_file)
