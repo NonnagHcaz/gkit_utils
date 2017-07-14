@@ -3,7 +3,8 @@ omit =
     */python?.?/*
     */site-packages/*
     *__init__*
-    *tests*
+    */tests/*
+    */test/*
 exclude_lines =
     arcpy.
     pragma: no cover
