@@ -91,7 +91,7 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
             # lines = fp.readlines()
             for line_in in fp:
                 entry_dict = {}
-                line = line_in.rstrip('\n').split(delimiter)
+                line = line_in.strip().split(delimiter)
                 if row <= 0 and headings and not heads:
                     heads = line
                 else:
