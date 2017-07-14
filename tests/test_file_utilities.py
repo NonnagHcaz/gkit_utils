@@ -12,9 +12,16 @@ except ImportError:
 from .context import file_utilities as f_utils
 from .context import BASEDIR, DATA_DIR
 
-# BASEDIR = './tests'
-# DATA_DIR = os.path.join(BASEDIR, 'dat')
+DEFAULT_JSON = {
+    "0": ["0", "1", "2"],
+    "1": {
+        "0": ["0", "1", "2"],
+        "1": "0"
+    }
+}
 
+DEFAULT_CSV_Y = [{'a': '0', 'b': '1', 'c': 'd'}, {'a': '1', 'b': '2', 'c': 'e'}]
+DEFAULT_CSV_N = [{0:'a', 1: 'b', 2: 'c'}, {0: '0', 1: '1', 2: 'd'}, {0: '1', 1: '2', 2: 'e'}]
 
 class FileUtilitiesTests(unittest.TestCase):
     def setUp(self):
@@ -35,15 +42,7 @@ class FileUtilitiesTests(unittest.TestCase):
 
     def test_read_json(self):
         test_file = os.path.join(DATA_DIR, 'test_json.json')
-        test_json = {
-            "0": ["0", "1", "2"],
-            "1": {
-                "0": ["0", "1", "2"],
-                "1": "0"
-            }
-        }
-
-        self.assertEqual(test_json, f_utils.read_json(test_file))
+        self.assertEqual(DEFAULT_JSON, f_utils.read_json(test_file))
 
     @mock.patch('warnings.warn')
     def test_read_json_fnfex(self, mfunc):
@@ -61,10 +60,26 @@ class FileUtilitiesTests(unittest.TestCase):
     # Unit tests for read_csv()
     ###########################################################################
 
-    ###########################################################################
-    # Unit tests for read()
-    ###########################################################################
+    def test_read_csv_y_c(self):
+        test_file = os.path.join(DATA_DIR, 'test_csv_c.csv')
+        self.assertEqual(DEFAULT_CSV_Y, f_utils.read_csv(test_file, headings=True, delimiter=','))
+
+    def test_read_csv_n_c(self):
+        test_file = os.path.join(DATA_DIR, 'test_csv_p.csv')
+        self.assertEqual(DEFAULT_CSV_N, f_utils.read_csv(test_file, headings=False, delimiter='|'))
 
     ###########################################################################
     # Unit tests for read_file()
     ###########################################################################
+
+    def test_read_file_as_json(self):
+        test_file = os.path.join(DATA_DIR, 'test_json.json')
+        self.assertEqual(DEFAULT_JSON, f_utils.read_file(test_file))
+
+    ###########################################################################
+    # Unit tests for read()
+    ###########################################################################
+
+    def test_read_as_json(self):
+        test_file = os.path.join(DATA_DIR, 'test_json.json')
+        self.assertEqual(DEFAULT_JSON, f_utils.read(test_file))
