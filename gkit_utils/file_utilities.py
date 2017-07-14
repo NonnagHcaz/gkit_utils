@@ -44,20 +44,20 @@ def read(file_path, **kwargs):
 def read_file(file_path, **kwargs):
     file_ext = os.path.splitext(file_path.upper())[1]
 
-    if 'delimiter' in kwargs:
-        delimiter = kwargs['delimiter']
-    else:
-        delimiter = ','
+    # if 'delimiter' in kwargs:
+    #     delimiter = kwargs['delimiter']
+    # else:
+    #     delimiter = ','
 
-    if 'headings' in kwargs:
-        headings = kwargs['headings']
-    else:
-        headings = False
+    # if 'headings' in kwargs:
+    #     headings = kwargs['headings']
+    # else:
+    #     headings = False
 
     if 'JSON' in file_ext:
         return read_json(file_path)
     elif 'CSV' in file_ext:
-        return read_csv(file_path, delimiter, headings, **kwargs)
+        return read_csv(file_path, **kwargs)
     else:
         with open(file_path) as fp:
             return fp.read()
@@ -115,34 +115,29 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 ########################################################################
 
 
-def write_file(file_path, data, mode='w'):
-    with open(file_path, mode) as fp:
-        file_ext = os.path.splitext(file_path.upper())[1]
-        if 'JSON' in file_ext:
-            json.dump(data, fp, indent=4, sort_keys=True)
-        elif 'CSV' in file_ext:
-            contents = ''
-            if isinstance(data, dict):
-                for key, vals in data.items():
-                    new_line = key + ',' + ','.join(vals)
-                    contents = '\n'.join([contents, new_line])
-            elif isinstance(data, list):
-                contents = '\n'.join(data)
-            fp.write(contents)
-        else:
+def write_file(file_path, data, mode='w', **kwargs):
+    # with open(file_path, mode) as fp:
+    file_ext = os.path.splitext(file_path.upper())[1]
+    if 'JSON' in file_ext:
+        write_json(file_path, data, mode, **kwargs)
+    elif 'CSV' in file_ext:
+        write_csv(file_path, data, mode)
+    else:
+        with open(file_path, mode) as fp:
             fp.write(data)
 
 
-def write_csv(file_path, rows):
-    with open(file_path, 'w') as fp:
+def write_json(file_path, data, mode='w', **kwargs):
+    with open(file_path, mode) as fp:
+        json.dump(data, fp, **kwargs)
+
+
+def write_csv(file_path, rows, mode='w'):
+    with open(file_path, mode, newline='') as fp:
         writer = csv.DictWriter(fp, fieldnames=rows[0].keys())
         writer.writeheader()
-        for row in rows:
-            stripped_row = {
-                k: (v.strip() if isinstance(v, str) else v)
-                for k, v in row.items()
-            }
-            writer.writerow(stripped_row)
+        writer.writerows(rows)
+        del writer
 
 
 ########################################################################
