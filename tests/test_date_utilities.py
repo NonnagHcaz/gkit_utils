@@ -1,9 +1,7 @@
 import unittest
 import datetime
-import os
 
 from .context import date_utilities as d_utils
-from .context import BASEDIR, DATA_DIR
 
 
 class DateUtilitiesTests(unittest.TestCase):

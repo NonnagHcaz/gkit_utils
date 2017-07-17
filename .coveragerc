@@ -12,11 +12,7 @@ exclude_lines =
     if DEBUG:
     if self.debug:
     if settings.DEBUG
-    raise AssertionError
-    raise NotImplementedError
     if 0:
     if __name__ == .__main__.:
-    except ImportError:
-    except Exception as e:
-    except Exception:
-    except NameError:
+    except
+    raise

@@ -58,7 +58,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_display_message_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + DEFAULT_PRE + DEFAULT_MSG + DEFAULT_POST + DEFAULT_SEP + ' '
+        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + \
+            DEFAULT_PRE + DEFAULT_MSG + DEFAULT_POST + DEFAULT_SEP + ' '
 
         p_utils.display_message(DEFAULT_MSG, tag=DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
@@ -66,7 +67,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_display_event_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + DEFAULT_PRE + 'EVENT' + DEFAULT_POST + DEFAULT_SEP + ' '
+        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + \
+            DEFAULT_PRE + 'EVENT' + DEFAULT_POST + DEFAULT_SEP + ' '
 
         p_utils.display_event(DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
@@ -74,7 +76,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_display_error_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + DEFAULT_PRE + 'ERROR' + DEFAULT_POST + DEFAULT_SEP + ' '
+        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + \
+            DEFAULT_PRE + 'ERROR' + DEFAULT_POST + DEFAULT_SEP + ' '
 
         p_utils.display_error(DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
@@ -82,7 +85,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_display_success_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + DEFAULT_PRE + 'SUCCESS' + DEFAULT_POST + DEFAULT_SEP + ' '
+        tag = DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST + \
+            DEFAULT_PRE + 'SUCCESS' + DEFAULT_POST + DEFAULT_SEP + ' '
 
         p_utils.display_success(DEFAULT_MSG, post='', out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
