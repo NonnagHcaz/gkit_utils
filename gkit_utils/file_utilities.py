@@ -115,15 +115,19 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 ########################################################################
 
 
+def write(file_path, data, mode='w', **kwargs):
+    write_file(file_path, data, mode, **kwargs)
+
+
 def write_file(file_path, data, mode='w', **kwargs):
     # with open(file_path, mode) as fp:
     file_ext = os.path.splitext(file_path.upper())[1]
     if 'JSON' in file_ext:
-        write_json(file_path, data, mode, **kwargs)
+        write_json(file_path, data, mode=mode, **kwargs)
     elif 'CSV' in file_ext:
-        write_csv(file_path, data, mode)
+        write_csv(file_path, data, mode=mode, **kwargs)
     else:
-        with open(file_path, mode) as fp:
+        with open(file_path, mode=mode) as fp:
             fp.write(data)
 
 
@@ -132,14 +136,14 @@ def write_json(file_path, data, mode='w', **kwargs):
         json.dump(data, fp, **kwargs)
 
 
-def write_csv(file_path, rows, mode='w'):
+def write_csv(file_path, rows, delimiter=',', mode='w'):
     try:
         fp = open(file_path, mode, newline='')
     except TypeError:
         if 'b' not in mode:
             mode += 'b'
         fp = open(file_path, mode)
-    writer = csv.DictWriter(fp, fieldnames=rows[0].keys())
+    writer = csv.DictWriter(fp, fieldnames=rows[0].keys(), delimiter=delimiter)
     writer.writeheader()
     writer.writerows(rows)
     del writer
@@ -149,12 +153,6 @@ def write_csv(file_path, rows, mode='w'):
 ########################################################################
 # Data format methods
 ########################################################################
-
-
-def get_dict_value(*key_list, **key_dict):
-    for key in key_list:
-        if key in key_dict:
-            return key_dict[key]
 
 
 def format_list_of_dicts_from_file(in_dict_list, base_path):

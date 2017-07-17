@@ -160,16 +160,74 @@ class FileUtilitiesTests(unittest.TestCase):
     # Unit tests for write_file()
     ###########################################################################
 
-    def test_write_as_json(self):
+    def test_write_file_as_json(self):
         test_file = os.path.join(DATA_DIR, 'test_json_write.json')
         f_utils.write_file(test_file, DEFAULT_JSON, sort_keys=True)
         self.assertEqual(DEFAULT_JSON, f_utils.read_json(test_file))
         os.remove(test_file)
 
-    def test_write_as_csv(self):
+    def test_write_file_as_csv(self):
         test_file = os.path.join(DATA_DIR, 'test_csv_write.csv')
         f_utils.write_file(test_file, DEFAULT_CSV_Y)
         self.assertEqual(DEFAULT_CSV_Y,
                          f_utils.read_csv(
                              test_file, headings=True, delimiter=','))
+        os.remove(test_file)
+
+    def test_write_file_as_txt(self):
+        test_file = os.path.join(DATA_DIR, 'test_txt_write.txt')
+        f_utils.write_file(test_file, DEFAULT_TXT)
+        self.assertEqual(DEFAULT_TXT,
+                         f_utils.read_file(
+                             test_file))
+        os.remove(test_file)
+
+    ###########################################################################
+    # Unit tests for write()
+    ###########################################################################
+
+    def test_write_as_json(self):
+        test_file = os.path.join(DATA_DIR, 'test_json_write.json')
+        f_utils.write(test_file, DEFAULT_JSON, sort_keys=True)
+        self.assertEqual(DEFAULT_JSON, f_utils.read_json(test_file))
+        os.remove(test_file)
+
+    def test_write_as_csv_c(self):
+        test_delim = ','
+        test_file = os.path.join(DATA_DIR, 'test_csv_write.csv')
+        f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
+        self.assertEqual(DEFAULT_CSV_Y,
+                         f_utils.read_csv(
+                             test_file, headings=True, delimiter=test_delim))
+        os.remove(test_file)
+
+    def test_write_as_csv_p(self):
+        test_delim = '|'
+        test_file = os.path.join(DATA_DIR, 'test_csv_write.csv')
+        f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
+        self.assertEqual(DEFAULT_CSV_Y,
+                         f_utils.read_csv(
+                             test_file, headings=True, delimiter=test_delim))
+        os.remove(test_file)
+
+    def test_write_as_txt(self):
+        test_file = os.path.join(DATA_DIR, 'test_txt_write.txt')
+        f_utils.write(test_file, DEFAULT_TXT)
+        self.assertEqual(DEFAULT_TXT,
+                         f_utils.read_file(
+                             test_file))
+        os.remove(test_file)
+
+    ###########################################################################
+    # Unit tests for convert_delimiter_inline()
+    ###########################################################################
+
+    def test_convert_delim_in(self):
+        test_file = os.path.join(DATA_DIR, 'test_csv_conv.csv')
+        f_utils.write(test_file, DEFAULT_CSV_Y)
+        f_utils.convert_delimiter_inline(test_file, ',', '|')
+
+        self.assertEqual(DEFAULT_CSV_Y,
+                         f_utils.read_csv(
+                             test_file, headings=True, delimiter='|'))
         os.remove(test_file)
