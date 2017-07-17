@@ -1,8 +1,8 @@
 Gannon Toolkit Library - Utilities (gkit_utils)
 =================================
 
-[![Build Status](https://travis-ci.org/gannon93/gkit_utils.svg?branch=master)](https://travis-ci.org/gannon93/gkit_utils)
-[![Coverage Status](https://coveralls.io/repos/github/gannon93/gkit_utils/badge.svg?branch=master)](https://coveralls.io/github/gannon93/gkit_utils?branch=master)
+[![Travis](https://img.shields.io/travis/gannon93/gkit_utils.svg)](https://travis-ci.org/gannon93/gkit_utils)
+[![Coveralls](https://img.shields.io/coveralls/gannon93/gkit_utils.svg)](https://coveralls.io/github/gannon93/gkit_utils?branch=master)
 
 Written by Zachary Gannon.   
 

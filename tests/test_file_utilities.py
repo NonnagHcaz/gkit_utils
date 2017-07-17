@@ -177,9 +177,7 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_write_file_as_txt(self):
         test_file = os.path.join(DATA_DIR, 'test_txt_write.txt')
         f_utils.write_file(test_file, DEFAULT_TXT)
-        self.assertEqual(DEFAULT_TXT,
-                         f_utils.read_file(
-                             test_file))
+        self.assertEqual(DEFAULT_TXT, f_utils.read_file(test_file))
         os.remove(test_file)
 
     ###########################################################################
@@ -213,9 +211,7 @@ class FileUtilitiesTests(unittest.TestCase):
     def test_write_as_txt(self):
         test_file = os.path.join(DATA_DIR, 'test_txt_write.txt')
         f_utils.write(test_file, DEFAULT_TXT)
-        self.assertEqual(DEFAULT_TXT,
-                         f_utils.read_file(
-                             test_file))
+        self.assertEqual(DEFAULT_TXT, f_utils.read_file(test_file))
         os.remove(test_file)
 
     ###########################################################################
