@@ -26,3 +26,6 @@ install:
 
 test_script:
   - "%PYTHON%/Scripts/coverage run -m unittest discover"
+
+on_success:
+  - "%PYTHON%/Scripts/coveralls"
