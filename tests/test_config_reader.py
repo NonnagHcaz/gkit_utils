@@ -20,17 +20,11 @@ class ConfigReaderTests(unittest.TestCase):
         pass
 
     def test_read_config(self):
-        test_heads = ['a', 'b', 'c']
         test_dict = {'a': '1', 'b': '2', 'c': 'd'}
-        self.assertEqual(test_dict,
-                         config_reader.ConfigReader().read_config(
-                             self.test_file, test_heads))
+        self.assertEqual(test_dict, config_reader.read_config(self.test_file))
 
     @mock.patch('warnings.warn')
     def test_read_config_bad(self, mfunc):
         test_heads = ['a', 'b', 'd']
-        test_dict = {'a': '1', 'b': '2', 'd': None}
-        self.assertEqual(test_dict,
-                         config_reader.ConfigReader().read_config(
-                             self.test_file, test_heads))
+        config_reader.read_config(self.test_file, test_heads)
         self.assertTrue(mfunc.called)
