@@ -21,70 +21,66 @@ class ConfigReader():
 
         See link for ini file configuration:
             https://wiki.python.org/moin/ConfigParserExamples
-    Attributes:
-        cparser (ConfigParser): class scoped ConfigParser object
     """
 
     def __init__(self, *args, **kwargs):
-        self.cparser = ConfigParser()
+        self.read_config = read_config
+        self.read_section_map = read_section_map
 
-    def read_config(self, file_path, headings, section=0):
 
-        return_dict = {}
-        self.cparser = ConfigParser()
+def read_config(filepath, headings=None, section=0):
+    """Summary
+        Method returns dictionary of contents under the specified
+        section heading.
+    Args:
+        section (Stirng): name of section to read contents of
 
-        # Initialize ConfigReader object
-        self.load_config(file_path)
+    Returns:
+        Dictionary: mapping of keys and values for the specified section
+                    for the specified file
+    """
 
-        # Get sections in config file
-        sections = self.get_sections()
+    return_dict = {}
+    cparser = ConfigParser()
 
-        # Get mapping of specific section
-        section_map = self.read_section_map(sections[section])
+    # Initialize ConfigReader object
+    cparser.read(filepath)
 
-        # Get only the values we need
-        for key in headings:
-            try:
-                return_dict[key] = section_map[key.lower()]
-            except KeyError as ke:
-                warnings.warn(str(ke))
-                return_dict[key] = None
-        return return_dict
+    # Get sections in config file
+    sections = cparser.sections()
 
-    def load_config(self, filepath):
-        """Summary
-            Method reads and returns the contents of an ini file.
-        Args:
-            filepath (String): file path to ini file
+    # Get mapping of specific section
+    section_map = read_section_map(cparser, sections[section])
 
-        Returns:
-            Dictionary: mapping of keys and values of specified ini file
-        """
-        return self.cparser.read(filepath)
+    # Get only the values we need
+    if not headings:
+        headings = section_map.keys()
+    for key in headings:
+        try:
+            return_dict[key] = section_map[key.lower()]
+        except KeyError as ke:
+            warnings.warn(str(ke))
+            return_dict[key] = None
+    return return_dict
 
-    def get_sections(self):
-        """Summary
-            Method returns list of section headings in ini file
-        Returns:
-            List: mapping of section headings in specified ini file
-        """
-        return self.cparser.sections()
 
-    def read_section_map(self, section):
-        """Summary
-            Method returns dictionary of contents under the specified
-            section heading.
-        Args:
-            section (Stirng): name of section to read contents of
+def read_section_map(cparser, section):
+    """Summary
+        Method returns dictionary of contents under the specified
+        section heading.
+    Args:
+        cparser (ConfigParser): parser object
+        section (Stirng): name of section to read contents of
 
-        Returns:
-            Dictionary: mapping of keys and values for the specified section
-        """
-        return_dict = {}
-        options = self.cparser.options(section)
-        for option in options:
-            try:
-                return_dict[option] = self.cparser.get(section, option)
-            except Exception as e:
-                return_dict[option] = None
-        return return_dict
+    Returns:
+        Dictionary: mapping of keys and values for the specified section
+    """
+
+    return_dict = {}
+    options = cparser.options(section)
+    for option in options:
+        try:
+            return_dict[option] = cparser.get(section, option)
+        except Exception as e:
+            return_dict[option] = None
+    return return_dict
