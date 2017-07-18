@@ -19,12 +19,12 @@ This repository is a collection of utility methods to improve or simplify common
 KNOWN BUGS:
 -----------
 
-None
+  - None
 
 ---
 
 TODO:
 -----
 
-Write gist
+  - Write gist
 
