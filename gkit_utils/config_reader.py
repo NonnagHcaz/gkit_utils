@@ -15,19 +15,6 @@ except ImportError:
     from configparser import ConfigParser
 
 
-class ConfigReader():
-    """Summary
-        Wrapper for Python's ConfigParser module.
-
-        See link for ini file configuration:
-            https://wiki.python.org/moin/ConfigParserExamples
-    """
-
-    def __init__(self, *args, **kwargs):
-        self.read_config = read_config
-        self.read_section_map = read_section_map
-
-
 def read_config(filepath, headings=None, section=0):
     """Summary
         Method returns dictionary of contents under the specified
