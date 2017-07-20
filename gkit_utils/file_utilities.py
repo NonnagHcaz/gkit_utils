@@ -155,38 +155,38 @@ def write_csv(file_path, rows, delimiter=',', mode='w'):
 ########################################################################
 
 
-def format_list_of_dicts_from_file(in_dict_list, base_path):
-    base_dict = read_json(base_path)
-    return format_list_of_dicts(in_dict_list, base_dict)
+# def format_list_of_dicts_from_file(in_dict_list, base_path):
+#     base_dict = read_json(base_path)
+#     return format_list_of_dicts(in_dict_list, base_dict)
 
 
-def format_dictionary_from_file(in_dict, base_path):
-    base_dict = read_json(base_path)
-    return format_dictionary(in_dict, base_dict)
+# def format_dictionary_from_file(in_dict, base_path):
+#     base_dict = read_json(base_path)
+#     return format_dictionary(in_dict, base_dict)
 
 
-def format_dictionary(in_dict, base_dict):
-    return_dict = {}
+# def format_dictionary(in_dict, base_dict):
+#     return_dict = {}
 
-    for key, val in base_dict.items():
-        if '$' in key:
-            key = key[1:]
-            new_key = in_dict[key]
-        else:
-            new_key = key
+#     for key, val in base_dict.items():
+#         if '$' in key:
+#             key = key[1:]
+#             new_key = in_dict[key]
+#         else:
+#             new_key = key
 
-        if isinstance(val, dict):
-            new_val = format_dictionary(in_dict[key], val)
-        return_dict[new_key] = new_val
-    return return_dict
+#         if isinstance(val, dict):
+#             new_val = format_dictionary(in_dict[key], val)
+#         return_dict[new_key] = new_val
+#     return return_dict
 
 
-def format_list_of_dicts(in_dict_list, base_dict):
-    return_list = []
+# def format_list_of_dicts(in_dict_list, base_dict):
+#     return_list = []
 
-    for in_dict in in_dict_list:
-        return_list.append(format_dictionary(in_dict, base_dict))
-    return return_list
+#     for in_dict in in_dict_list:
+#         return_list.append(format_dictionary(in_dict, base_dict))
+#     return return_list
 
 
 def batch_prepend_headings(basedir, head_list, delim=','):
@@ -200,6 +200,8 @@ def prepend_headings(base_file, head_list, delim=','):
         for line in fileinput.input(files=[base_file], inplace=True):
             if fileinput.isfirstline() and headers not in line:
                 print(headers)
+            else:
+                print(line)
 
 
 def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
