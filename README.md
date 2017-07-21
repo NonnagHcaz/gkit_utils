@@ -32,7 +32,7 @@ The `gkit_utils` package includes the following utilities modules:
     - Provides methods to fetch timestamps and convert their formats.  
     - Also provides a method to fetch the elapsed time between two timestamps.   
 
-Additionally, the `gkit_package` contains the following helper modules:  
+Additionally, the `gkit_utils` package contains the following helper modules:  
 
   - `gkit_utils.message_generator`  
     - Essentially the backbone of the `print_utilities` module.  
