@@ -77,6 +77,22 @@ class FileUtilitiesTests(unittest.TestCase):
     ###########################################################################
 
     ###########################################################################
+    # Unit tests for read_config()
+    ###########################################################################
+
+    def test_read_config(self):
+        test_dict = {'a': '1', 'b': '2', 'c': 'd'}
+        self.assertEqual(
+            test_dict,
+            f_utils.read_config(os.path.join(DATA_DIR, 'test_ini.ini')))
+
+    @mock.patch('warnings.warn')
+    def test_read_config_bad(self, mfunc):
+        test_heads = ['a', 'b', 'd']
+        f_utils.read_config(os.path.join(DATA_DIR, 'test_ini.ini'), test_heads)
+        self.assertTrue(mfunc.called)
+
+    ###########################################################################
     # Unit tests for read_json()
     ###########################################################################
 

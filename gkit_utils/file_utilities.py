@@ -8,6 +8,13 @@ import json
 import warnings
 
 try:
+    # Python 2
+    from ConfigParser import ConfigParser
+except ImportError:
+    # Python 3
+    from configparser import ConfigParser
+
+try:
     # Python 3
     FileNotFoundError
 except NameError:
@@ -109,6 +116,64 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
     except FileNotFoundError as ex:
         warnings.warn(str(ex))
     return return_list
+
+
+def read_config(file_path, headings=None, section=0):
+    """Summary
+        Method returns dictionary of contents under the specified
+        section heading.
+    Args:
+        section (Stirng): name of section to read contents of
+
+    Returns:
+        Dictionary: mapping of keys and values for the specified section
+                    for the specified file
+    """
+
+    return_dict = {}
+    cparser = ConfigParser()
+
+    # Initialize ConfigReader object
+    cparser.read(file_path)
+
+    # Get sections in config file
+    sections = cparser.sections()
+
+    # Get mapping of specific section
+    section_map = read_section_map(cparser, sections[section])
+
+    # Get only the values we need
+    if not headings:
+        headings = section_map.keys()
+    for key in headings:
+        try:
+            return_dict[key] = section_map[key.lower()]
+        except KeyError as ke:
+            warnings.warn(str(ke))
+            return_dict[key] = None
+    return return_dict
+
+
+def read_section_map(cparser, section):
+    """Summary
+        Method returns dictionary of contents under the specified
+        section heading.
+    Args:
+        cparser (ConfigParser): parser object
+        section (Stirng): name of section to read contents of
+
+    Returns:
+        Dictionary: mapping of keys and values for the specified section
+    """
+
+    return_dict = {}
+    options = cparser.options(section)
+    for option in options:
+        try:
+            return_dict[option] = cparser.get(section, option)
+        except Exception as e:
+            return_dict[option] = None
+    return return_dict
 
 
 ########################################################################
