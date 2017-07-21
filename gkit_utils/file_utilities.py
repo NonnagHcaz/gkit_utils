@@ -186,7 +186,6 @@ def write(file_path, data, mode='w', **kwargs):
 
 
 def write_file(file_path, data, mode='w', **kwargs):
-    # with open(file_path, mode) as fp:
     file_ext = os.path.splitext(file_path.upper())[1]
     if 'JSON' in file_ext:
         write_json(file_path, data, mode=mode, **kwargs)
