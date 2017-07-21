@@ -92,19 +92,20 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
             for line_in in fp:
                 entry_dict = {}
                 line = line_in.strip().split(delimiter)
-                if row <= 0 and headings and not heads:
-                    heads = line
-                else:
-                    col = 0
-                    for entry in line:
-                        if heads:
-                            head = heads[col]
-                        else:
-                            head = col
-                        entry_dict[head] = entry
-                        col += 1
-                    return_list.append(entry_dict)
-                row += 1
+                if len(line) > 0:
+                    if row <= 0 and headings and not heads:
+                        heads = line
+                    else:
+                        col = 0
+                        for entry in line:
+                            if heads:
+                                head = heads[col]
+                            else:
+                                head = col
+                            entry_dict[head] = entry
+                            col += 1
+                        return_list.append(entry_dict)
+                    row += 1
     except FileNotFoundError as ex:
         warnings.warn(str(ex))
     return return_list
@@ -136,16 +137,19 @@ def write_json(file_path, data, mode='w', **kwargs):
         json.dump(data, fp, **kwargs)
 
 
-def write_csv(file_path, rows, delimiter=',', mode='w'):
+def write_csv(file_path, data, delimiter=',', mode='w'):
     try:
         fp = open(file_path, mode, newline='')
     except TypeError:
+        print('python 2')
         if 'b' not in mode:
             mode += 'b'
         fp = open(file_path, mode)
-    writer = csv.DictWriter(fp, fieldnames=rows[0].keys(), delimiter=delimiter)
+
+    writer = csv.DictWriter(fp, fieldnames=data[0].keys(), delimiter=delimiter)
+
     writer.writeheader()
-    writer.writerows(rows)
+    writer.writerows(data)
     del writer
     fp.close()
 
@@ -154,16 +158,13 @@ def write_csv(file_path, rows, delimiter=',', mode='w'):
 # Data format methods
 ########################################################################
 
-
 # def format_list_of_dicts_from_file(in_dict_list, base_path):
 #     base_dict = read_json(base_path)
 #     return format_list_of_dicts(in_dict_list, base_dict)
 
-
 # def format_dictionary_from_file(in_dict, base_path):
 #     base_dict = read_json(base_path)
 #     return format_dictionary(in_dict, base_dict)
-
 
 # def format_dictionary(in_dict, base_dict):
 #     return_dict = {}
@@ -180,7 +181,6 @@ def write_csv(file_path, rows, delimiter=',', mode='w'):
 #         return_dict[new_key] = new_val
 #     return return_dict
 
-
 # def format_list_of_dicts(in_dict_list, base_dict):
 #     return_list = []
 
@@ -189,19 +189,22 @@ def write_csv(file_path, rows, delimiter=',', mode='w'):
 #     return return_list
 
 
-def batch_prepend_headings(basedir, head_list, delim=','):
+def batch_prepend_headings(basedir, head_list, delimiter=','):
     for base_file in os.listdir(basedir):
-        prepend_headings(os.path.join(basedir, base_file), head_list, delim)
+        prepend_headings(
+            os.path.join(basedir, base_file), head_list, delimiter)
 
 
-def prepend_headings(base_file, head_list, delim=','):
-    headers = delim.join(head_list)
+def prepend_headings(base_file, head_list=None, delimiter=','):
+    if head_list:
+        headers = delimiter.join([str(head) for head in head_list]).strip()
+    else:
+        headers = ''
     if os.path.exists(base_file):
         for line in fileinput.input(files=[base_file], inplace=True):
             if fileinput.isfirstline() and headers not in line:
                 print(headers)
-            else:
-                print(line)
+            print(line[:-1])
 
 
 def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
@@ -214,66 +217,42 @@ def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
 # Conversion methods
 ########################################################################
 
+# DOES NOT WORK
 
-def convert_file(in_path, out_path, out_write=True, **kwargs):
-    in_ext = os.path.splitext(in_path)[1].upper()
-    # out_ext = os.path.splitext(out_path)[1].upper()
+# def convert_file(in_path, out_path, out_write=True, **kwargs):
+#     in_ext = os.path.splitext(in_path)[1].upper()
+#     # out_ext = os.path.splitext(out_path)[1].upper()
 
-    if 'template' in kwargs:
-        template = kwargs['template']
-    else:
-        template = None
+#     if 'in_delimiter' in kwargs:
+#         in_delim = kwargs['in_delimiter']
+#     else:
+#         in_delim = ','
 
-    # if 'out_format' in kwargs:
-    #     out_format = kwargs['out_format']
-    # else:
-    #     out_format = False
+#     # if 'out_delimiter' in kwargs:
+#     #     out_delim = kwargs['out_delimiter']
+#     # else:
+#     #     out_delim = ','
 
-    if 'in_delimiter' in kwargs:
-        in_delim = kwargs['in_delimiter']
-    else:
-        in_delim = ','
+#     if 'in_heads_list' in kwargs:
+#         in_heads_list = kwargs['in_heads_list']
+#         in_has_heads = True
+#     else:
+#         in_heads_list = None
+#         in_has_heads = False
 
-    # if 'out_delimiter' in kwargs:
-    #     out_delim = kwargs['out_delimiter']
-    # else:
-    #     out_delim = ','
+#     in_data = None
+#     out_data = None
 
-    if 'in_heads_list' in kwargs:
-        in_heads_list = kwargs['in_heads_list']
-        in_has_heads = True
-    else:
-        in_heads_list = None
-        in_has_heads = False
+#     if 'CSV' in in_ext or 'TXT' in in_ext:
+#         in_data = read_csv(in_path, in_delim, in_has_heads, **{
+#             'heads_list': in_heads_list,
+#         })
+#     elif 'JSON' in in_ext:
+#         in_data = read_json(in_path)
+#     else:
+#         kwargs['heads_list'] = in_heads_list
+#         in_data = read_file(in_path, **kwargs)
 
-    # if 'out_heads_list' in kwargs:
-    #     out_heads_list = kwargs['out_heads_list']
-    #     out_has_heads = True
-    # else:
-    #     out_heads_list = None
-    #     out_has_heads = False
-
-    in_data = None
-    out_data = None
-
-    if 'CSV' in in_ext or 'TXT' in in_ext:
-        in_data = read_csv(in_path, in_delim, in_has_heads, **{
-            'heads_list': in_heads_list,
-        })
-    elif 'JSON' in in_ext:
-        in_data = read_json(in_path)
-    else:
-        kwargs['heads_list'] = in_heads_list
-        in_data = read_file(in_path, **kwargs)
-
-    if template and in_data:
-        out_data = format_dictionary(in_data, template)
-    else:
-        out_data = in_data
-
-    # if out_format:
-    #     out_data = format_csp(out_data)
-
-    if out_write and out_data:
-        write_file(out_path, out_data)
-    return out_data
+#     if out_write and out_data:
+#         write_file(out_path, out_data)
+#     return out_data
