@@ -266,67 +266,67 @@ class FileUtilitiesTests(unittest.TestCase):
     # Unit tests for prepend_headings()
     ###########################################################################
 
-    def test_prepend_headings_y(self):
-        test_file = os.path.join(DATA_DIR, 'test_csv_prepend_n.csv')
-        test_delim = '|'
-        f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.prepend_headings(
-            test_file, ['a', 'b', 'c'], delimiter=test_delim)
+    # def test_prepend_headings_y(self):
+    #     test_file = os.path.join(DATA_DIR, 'test_csv_prepend_n.csv')
+    #     test_delim = '|'
+    #     f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.prepend_headings(
+    #         test_file, ['a', 'b', 'c'], delimiter=test_delim)
 
-        self.assertEqual(DEFAULT_CSV_Y,
-                         f_utils.read_csv(
-                             test_file, headings=True, delimiter=test_delim))
-        os.remove(test_file)
+    #     self.assertEqual(DEFAULT_CSV_Y,
+    #                      f_utils.read_csv(
+    #                          test_file, headings=True, delimiter=test_delim))
+    #     os.remove(test_file)
 
-    def test_prepend_headings_n(self):
-        test_file = os.path.join(DATA_DIR, 'test_csv_prepend_y.csv')
-        test_delim = '|'
-        f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.prepend_headings(test_file, [0, 1, 2], delimiter=test_delim)
+    # def test_prepend_headings_n(self):
+    #     test_file = os.path.join(DATA_DIR, 'test_csv_prepend_y.csv')
+    #     test_delim = '|'
+    #     f_utils.write(test_file, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.prepend_headings(test_file, [0, 1, 2], delimiter=test_delim)
 
-        self.assertEqual(DEFAULT_CSV_R,
-                         f_utils.read_csv(
-                             test_file, headings=True, delimiter=test_delim))
-        os.remove(test_file)
+    #     self.assertEqual(DEFAULT_CSV_R,
+    #                      f_utils.read_csv(
+    #                          test_file, headings=True, delimiter=test_delim))
+    #     os.remove(test_file)
 
     ###########################################################################
     # Unit tests for batch_prepend_headings()
     ###########################################################################
 
-    def test_batch_prepend_headings_y(self):
-        test_dir = os.path.join(DATA_DIR, 'batch')
-        f_utils.mkdir_p(test_dir)
-        test_file1 = os.path.join(test_dir, 'test_csv_bprepend1_n.csv')
-        test_file2 = os.path.join(test_dir, 'test_csv_bprepend2_n.csv')
-        test_delim = '|'
-        f_utils.write(test_file1, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.write(test_file2, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.batch_prepend_headings(
-            test_dir, ['a', 'b', 'c'], delimiter=test_delim)
+    # def test_batch_prepend_headings_y(self):
+    #     test_dir = os.path.join(DATA_DIR, 'batch')
+    #     f_utils.mkdir_p(test_dir)
+    #     test_file1 = os.path.join(test_dir, 'test_csv_bprepend1_n.csv')
+    #     test_file2 = os.path.join(test_dir, 'test_csv_bprepend2_n.csv')
+    #     test_delim = '|'
+    #     f_utils.write(test_file1, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.write(test_file2, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.batch_prepend_headings(
+    #         test_dir, ['a', 'b', 'c'], delimiter=test_delim)
 
-        self.assertEqual(DEFAULT_CSV_Y,
-                         f_utils.read_csv(
-                             test_file1, headings=True, delimiter=test_delim))
-        self.assertEqual(DEFAULT_CSV_Y,
-                         f_utils.read_csv(
-                             test_file2, headings=True, delimiter=test_delim))
-        shutil.rmtree(test_dir)
+    #     self.assertEqual(DEFAULT_CSV_Y,
+    #                      f_utils.read_csv(
+    #                          test_file1, headings=True, delimiter=test_delim))
+    #     self.assertEqual(DEFAULT_CSV_Y,
+    #                      f_utils.read_csv(
+    #                          test_file2, headings=True, delimiter=test_delim))
+    #     shutil.rmtree(test_dir)
 
-    def test_batch_prepend_headings_n(self):
-        test_dir = os.path.join(DATA_DIR, 'batch')
-        f_utils.mkdir_p(test_dir)
-        test_file1 = os.path.join(test_dir, 'test_csv_bprepend1_n.csv')
-        test_file2 = os.path.join(test_dir, 'test_csv_bprepend2_n.csv')
-        test_delim = '|'
-        f_utils.write(test_file1, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.write(test_file2, DEFAULT_CSV_Y, delimiter=test_delim)
-        f_utils.batch_prepend_headings(
-            test_dir, [0, 1, 2], delimiter=test_delim)
+    # def test_batch_prepend_headings_n(self):
+    #     test_dir = os.path.join(DATA_DIR, 'batch')
+    #     f_utils.mkdir_p(test_dir)
+    #     test_file1 = os.path.join(test_dir, 'test_csv_bprepend1_n.csv')
+    #     test_file2 = os.path.join(test_dir, 'test_csv_bprepend2_n.csv')
+    #     test_delim = '|'
+    #     f_utils.write(test_file1, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.write(test_file2, DEFAULT_CSV_Y, delimiter=test_delim)
+    #     f_utils.batch_prepend_headings(
+    #         test_dir, [0, 1, 2], delimiter=test_delim)
 
-        self.assertEqual(DEFAULT_CSV_R,
-                         f_utils.read_csv(
-                             test_file1, headings=True, delimiter=test_delim))
-        self.assertEqual(DEFAULT_CSV_R,
-                         f_utils.read_csv(
-                             test_file2, headings=True, delimiter=test_delim))
-        shutil.rmtree(test_dir)
+    #     self.assertEqual(DEFAULT_CSV_R,
+    #                      f_utils.read_csv(
+    #                          test_file1, headings=True, delimiter=test_delim))
+    #     self.assertEqual(DEFAULT_CSV_R,
+    #                      f_utils.read_csv(
+    #                          test_file2, headings=True, delimiter=test_delim))
+    #     shutil.rmtree(test_dir)

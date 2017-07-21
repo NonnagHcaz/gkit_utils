@@ -19,7 +19,11 @@ This repository is a collection of utility methods to improve or simplify common
 KNOWN BUGS:
 -----------
 
-  - None
+  - gkit_utils.file_utilities.prepend_headings():
+    - Beaks integrity of order of columns per row in Python < 3.6.
+
+  - gkit_utils.file_utilities.convert_file():
+    - Does not work. Not sure if salvageable in current state.
 
 ---
 

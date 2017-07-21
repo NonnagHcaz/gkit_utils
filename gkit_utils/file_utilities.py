@@ -254,22 +254,22 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
 #     return return_list
 
 
-def batch_prepend_headings(basedir, head_list, delimiter=','):
-    for base_file in os.listdir(basedir):
-        prepend_headings(
-            os.path.join(basedir, base_file), head_list, delimiter)
+# def batch_prepend_headings(basedir, head_list, delimiter=','):
+#     for base_file in os.listdir(basedir):
+#         prepend_headings(
+#             os.path.join(basedir, base_file), head_list, delimiter)
 
 
-def prepend_headings(base_file, head_list=None, delimiter=','):
-    if head_list:
-        headers = delimiter.join([str(head) for head in head_list]).strip()
-    else:
-        headers = ''
-    if os.path.exists(base_file):
-        for line in fileinput.input(files=[base_file], inplace=True):
-            if fileinput.isfirstline() and headers not in line:
-                print(headers)
-            print(line[:-1])
+# def prepend_headings(base_file, head_list=None, delimiter=','):
+#     if head_list:
+#         headers = delimiter.join([str(head) for head in head_list]).strip()
+#     else:
+#         headers = ''
+#     if os.path.exists(base_file):
+#         for line in fileinput.input(files=[base_file], inplace=True):
+#             if fileinput.isfirstline() and headers not in line:
+#                 print(headers)
+#             print(line[:-1])
 
 
 def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
