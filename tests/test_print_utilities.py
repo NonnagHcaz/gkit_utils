@@ -16,18 +16,22 @@ except ImportError:
     # Python 3
     from io import StringIO
 
+import time
+
 from .context import print_utilities as p_utils
 
 DEFAULT_MSG = 'TEST'
 MOCK_TIMESTAMP = '20000101-000000'
+MOCK_TIMESTAMP_2 = '20000101-000003'
 
 DEFAULT_PRE = '['
 DEFAULT_POST = ']'
 DEFAULT_SEP = ':'
 
+TEST_SLEEP = 3
 
 def dummy():
-    pass
+    time.sleep(TEST_SLEEP)
 
 
 class PrintUtilitiesTests(unittest.TestCase):
@@ -40,8 +44,8 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_timeit(self, mfunc):
-        tag = '[{ts}]PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}]PROGRAM ENDED.\nElapsed:\n\t0.0000 s'.format(
-            ts=MOCK_TIMESTAMP)
+        tag = '[{ts}] PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}] PROGRAM ENDED.\nElapsed:\n\t00:00:{secs}'.format(
+            ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
         func = dummy
         p_utils.timeit(func, out=self.out)
         self.assertEqual(tag, self.out.getvalue().strip())

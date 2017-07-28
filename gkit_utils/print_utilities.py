@@ -1,4 +1,4 @@
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import, division, print_function
 
 import time
 import sys
@@ -26,8 +26,18 @@ def timeit(func=None, *args, **kwargs):
     end_time = time.time()
     display_divider(out=out)
     display_message('PROGRAM ENDED.', post='\n', out=out)
+    elapsed = t_utils.elapsed(start_time, end_time)
+
+    secs = float(elapsed)
+
+    hours = secs // 3600
+    secs -= 3600*hours
+
+    mins = secs // 60
+    secs -= 60*mins
+
     out.write(
-        'Elapsed:\n\t{} s\n\n\n'.format(t_utils.elapsed(start_time, end_time)))
+        'Elapsed:\n\t%02d:%02d:%02d\n\n\n' % (hours, mins, secs))
 
 
 def _display(msg, tag='', cli=True, out=sys.stdout):
