@@ -30,6 +30,7 @@ DEFAULT_SEP = ':'
 
 TEST_SLEEP = 3
 
+
 def dummy():
     time.sleep(TEST_SLEEP)
 
@@ -44,8 +45,13 @@ class PrintUtilitiesTests(unittest.TestCase):
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_timeit(self, mfunc):
-        tag = '[{ts}] PROGRAM STARTED...\n\n************************************************************************\n\n************************************************************************\n[{ts}] PROGRAM ENDED.\nElapsed:\n\t00:00:{secs}'.format(
-            ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
+        tag = (
+            '[{ts}] PROGRAM STARTED...\n\n************************************'
+            '************************************\n\n*************************'
+            '***********************************************\n[{ts}] PROGRAM E'
+            'NDED.\nElapsed:\n\t00:00:{secs}').format(
+                ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
+
         func = dummy
         p_utils.timeit(func, out=self.out)
         self.assertEqual(tag, self.out.getvalue().strip())

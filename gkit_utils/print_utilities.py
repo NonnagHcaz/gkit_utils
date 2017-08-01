@@ -1,15 +1,17 @@
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
-import time
 import sys
+import time
 
 try:
     import arcpy
 except ImportError:
     arcpy = None
 
-from . import time_utilities as t_utils
 from . import message_generator as msg_gen
+from . import time_utilities as t_utils
 
 
 def timeit(func=None, *args, **kwargs):

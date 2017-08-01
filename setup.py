@@ -5,9 +5,9 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     raise RuntimeError('No suitable version of setuptools detected.')
-import re
-import os
 import codecs
+import os
+import re
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 

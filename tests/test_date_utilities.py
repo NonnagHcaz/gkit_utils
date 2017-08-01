@@ -1,5 +1,5 @@
-import unittest
 import datetime
+import unittest
 
 from .context import date_utilities as d_utils
 

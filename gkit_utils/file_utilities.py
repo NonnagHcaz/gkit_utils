@@ -1,10 +1,8 @@
-from __future__ import absolute_import, print_function
-
-import os
-import errno
 import csv
+import errno
 import fileinput
 import json
+import os
 import warnings
 
 try:
@@ -51,16 +49,6 @@ def read(file_path, **kwargs):
 def read_file(file_path, **kwargs):
     file_ext = os.path.splitext(file_path.upper())[1]
 
-    # if 'delimiter' in kwargs:
-    #     delimiter = kwargs['delimiter']
-    # else:
-    #     delimiter = ','
-
-    # if 'headings' in kwargs:
-    #     headings = kwargs['headings']
-    # else:
-    #     headings = False
-
     if 'JSON' in file_ext:
         return read_json(file_path)
     elif 'CSV' in file_ext:
@@ -95,7 +83,6 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
                 heads = kwargs['heads_list']
             else:
                 heads = []
-            # lines = fp.readlines()
             for line_in in fp:
                 entry_dict = {}
                 line = line_in.strip().split(delimiter)
