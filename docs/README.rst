@@ -1,7 +1,7 @@
 Gannon Toolkit Library - Utilities (gkit\_utils)
 ================================================
 
-| |Travis - Linux| |AppVeyor - Windows|
+| |Travis| |AppVeyor|
 | |Coveralls|
 
 Written by Zachary Gannon.
@@ -72,9 +72,12 @@ TODO:
 
 -  Write gist
 
-.. |Travis - Linux| image:: https://img.shields.io/travis/gannon93/gkit_utils.svg?label=Linux%20Status
+.. |Travis| image:: https://img.shields.io/travis/gannon93/gkit_utils.svg?label=Linux%20Status
    :target: https://travis-ci.org/gannon93/gkit_utils
-.. |AppVeyor - Windows| image:: https://img.shields.io/appveyor/ci/Gannon93/gkit-utils.svg?label=Windows%20Status
+   :alt: Travis - Linux
+.. |AppVeyor| image:: https://img.shields.io/appveyor/ci/Gannon93/gkit-utils.svg?label=Windows%20Status
    :target: https://ci.appveyor.com/project/Gannon93/gkit-utils
+   :alt: Appveyor - Windows
 .. |Coveralls| image:: https://img.shields.io/coveralls/gannon93/gkit_utils.svg?label=Code%20Coverage
    :target: https://coveralls.io/github/gannon93/gkit_utils?branch=master
+   :alt: Coveralls
