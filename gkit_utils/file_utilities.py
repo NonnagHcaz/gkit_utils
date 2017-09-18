@@ -109,17 +109,6 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 
 
 def read_config(file_path, headings=None, section=0):
-    """Summary
-        Method returns dictionary of contents under the specified
-        section heading.
-    Args:
-        section (Stirng): name of section to read contents of
-
-    Returns:
-        Dictionary: mapping of keys and values for the specified section
-                    for the specified file
-    """
-
     return_dict = {}
     cparser = ConfigParser()
 
@@ -145,17 +134,6 @@ def read_config(file_path, headings=None, section=0):
 
 
 def read_section_map(cparser, section):
-    """Summary
-        Method returns dictionary of contents under the specified
-        section heading.
-    Args:
-        cparser (ConfigParser): parser object
-        section (Stirng): name of section to read contents of
-
-    Returns:
-        Dictionary: mapping of keys and values for the specified section
-    """
-
     return_dict = {}
     options = cparser.options(section)
     for option in options:

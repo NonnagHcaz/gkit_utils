@@ -21,11 +21,10 @@ from . import time_utilities as t_utils
 
 
 def timeit(func=None, *args, **kwargs):
-    """Times a function.
+    """Time a function.
 
     Method provides ability to time (theoretically) any method.
     """
-
     out = sys.stdout
     if 'out' in kwargs:
         out = kwargs['out']
@@ -66,7 +65,7 @@ def _display(msg, tag='', **kwargs):
 
 
 def display_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
-    """Display a divider.
+    r"""Display a divider.
 
     Method displays a divider.
 
@@ -76,16 +75,16 @@ def display_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
         count {number}  -- divider length
                             (default: {72})
         pre {str}       -- token to display before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to display after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     p_msg = msg_gen.generate_divider(token, count, pre, post)
     _display(p_msg, '', **kwargs)
 
 
 def display_message(msg, tag='', pre='', post='', **kwargs):
-    """Display a generic message.
+    r"""Display a generic message.
 
     Method displays a generic message.
 
@@ -96,16 +95,16 @@ def display_message(msg, tag='', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {''})
         pre {str}       -- token to display before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to display after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     p_msg = msg_gen.generate_message(msg, tag, pre, post, **kwargs)
     _display(p_msg, tag, **kwargs)
 
 
 def display_error(msg, tag='ERROR', pre='', post='', **kwargs):
-    """Display an error message.
+    r"""Display an error message.
 
     Method displays an error message.
 
@@ -116,16 +115,16 @@ def display_error(msg, tag='ERROR', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'ERROR'})
         pre {str}       -- token to display before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to display after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     p_msg = msg_gen.generate_error(msg, tag, pre, post, **kwargs)
     _display(p_msg, tag, **kwargs)
 
 
 def display_event(msg, tag='EVENT', pre='', post='', **kwargs):
-    """Display an event message.
+    r"""Display an event message.
 
     Method displays an event message.
 
@@ -136,16 +135,16 @@ def display_event(msg, tag='EVENT', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'EVENT'})
         pre {str}       -- token to display before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to display after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     p_msg = msg_gen.generate_event(msg, tag, pre, post, **kwargs)
     _display(p_msg, tag, **kwargs)
 
 
 def display_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
-    """Display a success message.
+    r"""Display a success message.
 
     Method displays a success message.
 
@@ -156,9 +155,9 @@ def display_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'SUCCESS'})
         pre {str}       -- token to display before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to display after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
     _display(p_msg, tag, **kwargs)

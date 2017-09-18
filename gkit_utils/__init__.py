@@ -1,3 +1,5 @@
+"""Init file."""
+
 import os
 import sys
 

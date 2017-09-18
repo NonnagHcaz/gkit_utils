@@ -9,7 +9,7 @@ from . import time_utilities as t_utils
 
 
 def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
-    """Generates divider string.
+    r"""Generate divider string.
 
     Method generates a divider string.
 
@@ -19,9 +19,9 @@ def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
         count {number}  -- divider length
                             (default: {72})
         pre {str}       -- token to generate before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to generate after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     msg = token * count
     kwargs['stamped'] = False
@@ -29,7 +29,7 @@ def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
 
 
 def generate_error(msg, tag='ERROR', pre='', post='', **kwargs):
-    """Generate an error message.
+    r"""Generate an error message.
 
     Method generates an error message.
 
@@ -40,15 +40,15 @@ def generate_error(msg, tag='ERROR', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'ERROR'})
         pre {str}       -- token to generate before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to generate after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
 def generate_event(msg, tag='EVENT', pre='', post='', **kwargs):
-    """Generate an event message.
+    r"""Generate an event message.
 
     Method generates an event message.
 
@@ -59,15 +59,15 @@ def generate_event(msg, tag='EVENT', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'EVENT'})
         pre {str}       -- token to generate before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to generate after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
 def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
-    """Generate a success message.
+    r"""Generate a success message.
 
     Method generates a success message.
 
@@ -78,15 +78,15 @@ def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {'SUCCESS'})
         pre {str}       -- token to generate before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to generate after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
 def generate_message(msg, tag='', pre='', post='', **kwargs):
-    """Generate a generic message.
+    r"""Generate a generic message.
 
     Method generates a generic message.
 
@@ -97,9 +97,9 @@ def generate_message(msg, tag='', pre='', post='', **kwargs):
         tag {str}       -- tag to denote type of message
                             (default: {''})
         pre {str}       -- token to generate before message
-                            (default: {r'\n'})
+                            (default: {'\n'})
         post {str}      -- token to generate after message
-                            (default: {r'\n'})
+                            (default: {'\n'})
     """
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
@@ -125,7 +125,7 @@ def _generate(msg, tag='', pre='', post='', **kwargs):
 
 
 def generate_tag_head(msg, sep=':', pre='[', post=']'):
-    """Generate a tag head string.
+    r"""Generate a tag head string.
 
     Method formats a tag string as a header.
 
@@ -144,7 +144,7 @@ def generate_tag_head(msg, sep=':', pre='[', post=']'):
 
 
 def generate_tag_string(msg, pre='[', post=']'):
-    """Generate a tag string.
+    r"""Generate a tag string.
 
     Method formats a tag string.
 
