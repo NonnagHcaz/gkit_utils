@@ -1,4 +1,6 @@
-"""Module provides methods to display messages with timestamps,
+"""Print Utilities.
+
+Module provides methods to display messages with timestamps,
 message type tags, and dividers.
 """
 

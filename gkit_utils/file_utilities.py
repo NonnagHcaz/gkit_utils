@@ -1,4 +1,6 @@
-"""Module provides wrapper methods to standard read/write methods for CSV,
+"""File Utilities.
+
+Module provides wrapper methods to standard read/write methods for CSV,
 JSON, INI (config), and TXT files.
 """
 
