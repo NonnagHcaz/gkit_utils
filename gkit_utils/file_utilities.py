@@ -81,11 +81,12 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
     return_list = []
     try:
         with open(file_path, 'r') as file_pointer:
+
             row = 0
+            heads = []
             if 'heads_list' in kwargs:
                 heads = kwargs['heads_list']
-            else:
-                heads = []
+
             for line_in in file_pointer:
                 entry_dict = {}
                 line = line_in.strip().split(delimiter)
