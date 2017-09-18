@@ -7,12 +7,9 @@ import json
 import os
 import warnings
 
-try:
-    # Python 2
-    from six.moves.configparser import ConfigParser
-except ImportError:
-    # Python 3
-    from configparser import ConfigParser
+
+from six.moves.configparser import ConfigParser
+
 
 try:
     # Python 3
@@ -158,7 +155,10 @@ def read_section_map(cparser, section):
     return_dict = {}
     options = cparser.options(section)
     for option in options:
-        return_dict[option] = cparser.get(section, option, fallback=None)
+        try:
+            return_dict[option] = cparser.get(section, option)
+        except ConfigParser.NoSectionError:
+            return_dict[option] = None
     return return_dict
 
 
