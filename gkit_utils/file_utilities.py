@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import errno
 import fileinput
@@ -7,7 +9,7 @@ import warnings
 
 try:
     # Python 2
-    from ConfigParser import ConfigParser
+    from six.moves.configparser import ConfigParser
 except ImportError:
     # Python 3
     from configparser import ConfigParser
@@ -131,7 +133,7 @@ def read_config(file_path, headings=None, section=0):
 
     # Get only the values we need
     if not headings:
-        headings = section_map.keys()
+        headings = list(section_map.keys())
     for key in headings:
         try:
             return_dict[key] = section_map[key.lower()]
@@ -197,7 +199,8 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
             mode += 'b'
         fp = open(file_path, mode)
 
-    writer = csv.DictWriter(fp, fieldnames=data[0].keys(), delimiter=delimiter)
+    writer = csv.DictWriter(
+        fp, fieldnames=list(data[0].keys()), delimiter=delimiter)
 
     writer.writeheader()
     writer.writerows(data)
@@ -239,12 +242,10 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
 #         return_list.append(format_dictionary(in_dict, base_dict))
 #     return return_list
 
-
 # def batch_prepend_headings(basedir, head_list, delimiter=','):
 #     for base_file in os.listdir(basedir):
 #         prepend_headings(
 #             os.path.join(basedir, base_file), head_list, delimiter)
-
 
 # def prepend_headings(base_file, head_list=None, delimiter=','):
 #     if head_list:
@@ -261,7 +262,7 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
 def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
     if os.path.exists(base_file):
         for line in fileinput.input(files=[base_file], inplace=True):
-            print(line[:-1].replace(old_delimiter, new_delimiter))
+            print((line[:-1].replace(old_delimiter, new_delimiter)))
 
 
 ########################################################################
