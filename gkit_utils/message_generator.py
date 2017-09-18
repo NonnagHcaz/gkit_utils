@@ -1,3 +1,8 @@
+"""message_generator.py
+
+Module proivides helper methods for the print_utilities module.
+"""
+
 from __future__ import absolute_import
 
 from . import time_utilities as t_utils
