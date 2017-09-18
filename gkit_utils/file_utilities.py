@@ -13,9 +13,7 @@ import json
 import os
 import warnings
 
-
 from six.moves.configparser import ConfigParser
-
 
 try:
     # Python 3

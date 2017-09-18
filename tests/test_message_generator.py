@@ -45,19 +45,19 @@ class MessageGeneratorTests(unittest.TestCase):
         msg = mg.generate_success(DEFAULT_MSG, stamped=False)
         self.assertEqual(tag + DEFAULT_MSG + '\n', msg)
 
-    def test_get_tag_string(self):
+    def test_generate_tag_string(self):
         pre = '['
         post = ']'
         tag = pre + DEFAULT_MSG + post
 
-        msg = mg.get_tag_string(DEFAULT_MSG, pre=pre, post=post)
+        msg = mg.generate_tag_string(DEFAULT_MSG, pre=pre, post=post)
         self.assertEqual(tag, msg)
 
-    def test_get_tag_head(self):
+    def test_generate_tag_head(self):
         pre = '['
         post = ']'
         sep = ':'
         tag = pre + DEFAULT_MSG + post + sep + ' '
 
-        msg = mg.get_tag_head(DEFAULT_MSG, pre=pre, post=post, sep=sep)
+        msg = mg.generate_tag_head(DEFAULT_MSG, pre=pre, post=post, sep=sep)
         self.assertEqual(tag, msg)

@@ -21,6 +21,11 @@ from . import time_utilities as t_utils
 
 
 def timeit(func=None, *args, **kwargs):
+    """Times a function.
+
+    Method provides ability to time (theoretically) any method.
+    """
+
     out = sys.stdout
     if 'out' in kwargs:
         out = kwargs['out']
@@ -47,64 +52,114 @@ def timeit(func=None, *args, **kwargs):
     out.write('Elapsed:\n\t%02d:%02d:%02d\n\n\n' % (hours, mins, secs))
 
 
-def _display(msg, tag='', cli=True, out=sys.stdout):
+def _display(msg, tag='', **kwargs):
+    if 'out' in kwargs and kwargs['out']:
+        out = kwargs['out']
+    else:
+        out = sys.stdout
+
     if arcpy and 'ERROR' in tag.upper():
         arcpy.AddError(msg)
     elif arcpy:
         arcpy.AddMessage(msg)
-    elif cli:
+    else:
         out.write(msg)
 
 
-def display_divider(token='*',
-                    count=72,
-                    pre='\n',
-                    post='\n',
-                    cli=True,
-                    out=sys.stdout):
+def display_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
+    """Display a divider.
+
+    Method displays a divider.
+
+    Keyword Arguments:
+        token {str}     -- token used to display
+                            (default: {'*'})
+        count {number}  -- divider length
+                            (default: {72})
+        pre {str}       -- token to display before message
+                            (default: {r'\n'})
+        post {str}      -- token to display after message
+                            (default: {r'\n'})
+    """
     p_msg = msg_gen.generate_divider(token, count, pre, post)
-    _display(p_msg, '', cli, out)
+    _display(p_msg, '', **kwargs)
 
 
-def display_message(msg,
-                    tag='',
-                    pre='',
-                    post='',
-                    cli=True,
-                    stamped=True,
-                    out=sys.stdout):
-    p_msg = msg_gen.generate_message(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli, out)
+def display_message(msg, tag='', pre='', post='', **kwargs):
+    """Display a generic message.
+
+    Method displays a generic message.
+
+    Arguments:
+        msg {str} -- message to display
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {''})
+        pre {str}       -- token to display before message
+                            (default: {r'\n'})
+        post {str}      -- token to display after message
+                            (default: {r'\n'})
+    """
+    p_msg = msg_gen.generate_message(msg, tag, pre, post, **kwargs)
+    _display(p_msg, tag, **kwargs)
 
 
-def display_error(msg,
-                  tag='ERROR',
-                  pre='',
-                  post='',
-                  cli=True,
-                  stamped=True,
-                  out=sys.stdout):
-    p_msg = msg_gen.generate_error(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli, out)
+def display_error(msg, tag='ERROR', pre='', post='', **kwargs):
+    """Display an error message.
+
+    Method displays an error message.
+
+    Arguments:
+        msg {str} -- message to display
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'ERROR'})
+        pre {str}       -- token to display before message
+                            (default: {r'\n'})
+        post {str}      -- token to display after message
+                            (default: {r'\n'})
+    """
+    p_msg = msg_gen.generate_error(msg, tag, pre, post, **kwargs)
+    _display(p_msg, tag, **kwargs)
 
 
-def display_event(msg,
-                  tag='EVENT',
-                  pre='',
-                  post='',
-                  cli=True,
-                  stamped=True,
-                  out=sys.stdout):
-    p_msg = msg_gen.generate_event(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli, out)
+def display_event(msg, tag='EVENT', pre='', post='', **kwargs):
+    """Display an event message.
+
+    Method displays an event message.
+
+    Arguments:
+        msg {str} -- message to display
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'EVENT'})
+        pre {str}       -- token to display before message
+                            (default: {r'\n'})
+        post {str}      -- token to display after message
+                            (default: {r'\n'})
+    """
+    p_msg = msg_gen.generate_event(msg, tag, pre, post, **kwargs)
+    _display(p_msg, tag, **kwargs)
 
 
-def display_success(msg,
-                    tag='SUCCESS',
-                    pre='',
-                    post='\n',
-                    cli=True,
-                    stamped=True,
-                    out=sys.stdout):
-    p_msg = msg_gen.generate_success(msg, tag, pre, post, stamped)
-    _display(p_msg, tag, cli, out)
+def display_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
+    """Display a success message.
+
+    Method displays a success message.
+
+    Arguments:
+        msg {str} -- message to display
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'SUCCESS'})
+        pre {str}       -- token to display before message
+                            (default: {r'\n'})
+        post {str}      -- token to display after message
+                            (default: {r'\n'})
+    """
+    p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
+    _display(p_msg, tag, **kwargs)
