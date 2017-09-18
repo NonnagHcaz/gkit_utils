@@ -24,7 +24,8 @@ def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
                             (default: {r'\n'})
     """
     msg = token * count
-    return _generate(msg=msg, tag='DIVIDER', pre=pre, post=post, stamped=False)
+    kwargs['stamped'] = False
+    return _generate(msg=msg, tag='DIVIDER', pre=pre, post=post, **kwargs)
 
 
 def generate_error(msg, tag='ERROR', pre='', post='', **kwargs):
@@ -103,18 +104,23 @@ def generate_message(msg, tag='', pre='', post='', **kwargs):
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
-def _generate(msg, tag='', pre='', post='', stamped=True, **kwargs):
+def _generate(msg, tag='', pre='', post='', **kwargs):
+    div = False
     if tag:
         if tag.upper() in 'DIVIDER':
             ftag = ''
+            div = True
         else:
             ftag = generate_tag_head(tag)
     else:
         ftag = ' '
-    p_msg = str(ftag) + str(pre) + str(msg) + str(post)
-    if stamped and t_utils:
-        timestamp = t_utils.get_timestamp()
-        p_msg = generate_tag_string(timestamp) + p_msg
+
+    if not div and 'stamped' in kwargs and kwargs['stamped'] and t_utils:
+        timestamp = generate_tag_string(t_utils.get_timestamp())
+    else:
+        timestamp = ''
+
+    p_msg = timestamp + str(ftag) + str(pre) + str(msg) + str(post)
     return p_msg
 
 

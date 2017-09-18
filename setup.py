@@ -15,8 +15,10 @@ HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 def read(*parts):
-    with codecs.open(os.path.join(HERE, *parts), 'rb', 'utf-8') as f:
-        return f.read()
+    with codecs.open(
+        os.path.join(HERE, *parts), 'rb', 'utf-8'
+    ) as file_pointer:
+        return file_pointer.read()
 
 
 META_FILE = read(* ['docs', '__about__.py'])

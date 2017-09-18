@@ -26,19 +26,20 @@ def timeit(func=None, *args, **kwargs):
     Method provides ability to time (theoretically) any method.
     """
 
-    out = sys.stdout
     if 'out' in kwargs:
         out = kwargs['out']
+    else:
+        kwargs = sys.stdout
 
     out.write('\n')
-    display_message('PROGRAM STARTED...', post='\n', out=out)
-    display_divider(out=out)
+    display_message('PROGRAM STARTED...', post='\n', **kwargs)
+    display_divider(**kwargs)
     start_time = time.time()
     if func is not None:
-        func(*args)
+        func(*args, **kwargs)
     end_time = time.time()
-    display_divider(out=out)
-    display_message('PROGRAM ENDED.', post='\n', out=out)
+    display_divider(**kwargs)
+    display_message('PROGRAM ENDED.', post='\n', **kwargs)
     elapsed = t_utils.elapsed(start_time, end_time)
 
     secs = float(elapsed)
