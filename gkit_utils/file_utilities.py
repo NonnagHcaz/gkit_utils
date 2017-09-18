@@ -32,8 +32,8 @@ def mkdir_p(path):
     # Function performs cli command: mkdir -p
     try:
         os.makedirs(path)
-    except OSError as exc:  # Python >2.5
-        if exc.errno == errno.EEXIST and os.path.isdir(path):
+    except OSError as err_msg:  # Python >2.5
+        if err_msg.errno == errno.EEXIST and os.path.isdir(path):
             pass
         else:
             raise
@@ -69,8 +69,8 @@ def read_json(file_path, encoding='UTF-8', ordered=True):
             kwargs['object_pairs_hook'] = OrderedDict
         with open(file_path, 'r') as fp:
             return_dict = json.load(fp, **kwargs)
-    except (FileNotFoundError, ValueError) as ex:
-        warnings.warn(str(ex))
+    except (FileNotFoundError, ValueError) as err_msg:
+        warnings.warn(str(err_msg))
     return return_dict
 
 
@@ -102,8 +102,8 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
                             col += 1
                         return_list.append(entry_dict)
                     row += 1
-    except FileNotFoundError as ex:
-        warnings.warn(str(ex))
+    except FileNotFoundError as err_msg:
+        warnings.warn(str(err_msg))
     return return_list
 
 
@@ -137,8 +137,8 @@ def read_config(file_path, headings=None, section=0):
     for key in headings:
         try:
             return_dict[key] = section_map[key.lower()]
-        except KeyError as ke:
-            warnings.warn(str(ke))
+        except KeyError as err_msg:
+            warnings.warn(str(err_msg))
             return_dict[key] = None
     return return_dict
 
@@ -160,7 +160,7 @@ def read_section_map(cparser, section):
     for option in options:
         try:
             return_dict[option] = cparser.get(section, option)
-        except Exception as e:
+        except Exception:
             return_dict[option] = None
     return return_dict
 
@@ -194,7 +194,6 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
     try:
         fp = open(file_path, mode, newline='')
     except TypeError:
-        print('python 2')
         if 'b' not in mode:
             mode += 'b'
         fp = open(file_path, mode)

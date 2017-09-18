@@ -9,11 +9,11 @@ def get_timestamp(ts_to_format=None, format_string="%Y%m%d-%H%M%S"):
 
 
 def get_elapsed(start, end, pre='0', post='4'):
-    return elapsed(start, end, pre, post)
+    f_str = ''.join(['{', str(pre), ':.', str(post), 'f}'])
+    e_str = round((end - start), int(post))
+    return f_str.format(e_str)
 
 
 def elapsed(start, end, pre='0', post='4'):
     # !DEPRECATED! Use get_elapsed() with same params.
-    f_str = ''.join(['{', str(pre), ':.', str(post), 'f}'])
-    e_str = round((end - start), int(post))
-    return f_str.format(e_str)
+    return get_elapsed(start, end, pre, post)
