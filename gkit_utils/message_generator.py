@@ -1,6 +1,4 @@
-"""message_generator.py
-
-Module proivides helper methods for the print_utilities module.
+"""Module proivides helper methods for the print_utilities module.
 """
 
 from __future__ import absolute_import

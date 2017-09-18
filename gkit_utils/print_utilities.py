@@ -1,7 +1,5 @@
-"""print_utilities.py
-
-Module provides methods to display messages with timestamps, message type tags,
-and dividers.
+"""Module provides methods to display messages with timestamps,
+message type tags, and dividers.
 """
 
 from __future__ import absolute_import

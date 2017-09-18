@@ -1,7 +1,5 @@
-"""file_utilities.py
-
-Module provides wrapper methods to standard read/write methods for CSV, JSON,
-INI (config), and TXT files.
+"""Module provides wrapper methods to standard read/write methods for CSV,
+JSON, INI (config), and TXT files.
 """
 
 from __future__ import absolute_import

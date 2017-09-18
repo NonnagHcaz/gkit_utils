@@ -1,6 +1,4 @@
-"""time_utilities.py
-
-Module provides methods to fetch timestamps and convert their formats.
+"""Module provides methods to fetch timestamps and convert their formats.
 """
 
 from __future__ import absolute_import
@@ -8,9 +6,7 @@ import datetime
 
 
 def get_timestamp(ts_to_format=None, format_string="%Y%m%d-%H%M%S"):
-    """get_timestamp()
-
-    Method formats a datetime.datetime object using the provided format
+    """Method formats a datetime.datetime object using the provided format
     string, and returns the formatted object as a string.
 
     Keyword Arguments:
@@ -28,9 +24,7 @@ def get_timestamp(ts_to_format=None, format_string="%Y%m%d-%H%M%S"):
 
 
 def get_elapsed(start, end, pre='0', post='4'):
-    """get_elapsed()
-
-    Method computes the difference between two datetime.datetime objects,
+    """Method computes the difference between two datetime.datetime objects,
     and returns the difference as a string.
 
     Arguments:

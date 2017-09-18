@@ -1,6 +1,4 @@
-"""date_utilities.py
-
-Module provides methods to fetch datestamps and convert their formats.
+"""Module provides methods to fetch datestamps and convert their formats.
 """
 
 from __future__ import absolute_import
