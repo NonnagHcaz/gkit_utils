@@ -56,8 +56,8 @@ def read_file(file_path, **kwargs):
     elif 'CSV' in file_ext:
         return read_csv(file_path, **kwargs)
     else:
-        with open(file_path) as fp:
-            return fp.read()
+        with open(file_path) as file_pointer:
+            return file_pointer.read()
 
 
 def read_json(file_path, encoding='UTF-8', ordered=True):
@@ -67,8 +67,8 @@ def read_json(file_path, encoding='UTF-8', ordered=True):
         kwargs['encoding'] = encoding
         if ordered:
             kwargs['object_pairs_hook'] = OrderedDict
-        with open(file_path, 'r') as fp:
-            return_dict = json.load(fp, **kwargs)
+        with open(file_path, 'r') as file_pointer:
+            return_dict = json.load(file_pointer, **kwargs)
     except (FileNotFoundError, ValueError) as err_msg:
         warnings.warn(str(err_msg))
     return return_dict
@@ -79,13 +79,13 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 
     return_list = []
     try:
-        with open(file_path, 'r') as fp:
+        with open(file_path, 'r') as file_pointer:
             row = 0
             if 'heads_list' in kwargs:
                 heads = kwargs['heads_list']
             else:
                 heads = []
-            for line_in in fp:
+            for line_in in file_pointer:
                 entry_dict = {}
                 line = line_in.strip().split(delimiter)
                 if len(line) > 0:
@@ -158,10 +158,7 @@ def read_section_map(cparser, section):
     return_dict = {}
     options = cparser.options(section)
     for option in options:
-        try:
-            return_dict[option] = cparser.get(section, option)
-        except Exception:
-            return_dict[option] = None
+        return_dict[option] = cparser.get(section, option, fallback=None)
     return return_dict
 
 
@@ -181,30 +178,30 @@ def write_file(file_path, data, mode='w', **kwargs):
     elif 'CSV' in file_ext:
         write_csv(file_path, data, mode=mode, **kwargs)
     else:
-        with open(file_path, mode=mode) as fp:
-            fp.write(data)
+        with open(file_path, mode=mode) as file_pointer:
+            file_pointer.write(data)
 
 
 def write_json(file_path, data, mode='w', **kwargs):
-    with open(file_path, mode) as fp:
-        json.dump(data, fp, **kwargs)
+    with open(file_path, mode) as file_pointer:
+        json.dump(data, file_pointer, **kwargs)
 
 
 def write_csv(file_path, data, delimiter=',', mode='w'):
     try:
-        fp = open(file_path, mode, newline='')
+        file_pointer = open(file_path, mode, newline='')
     except TypeError:
         if 'b' not in mode:
             mode += 'b'
-        fp = open(file_path, mode)
+        file_pointer = open(file_path, mode)
 
     writer = csv.DictWriter(
-        fp, fieldnames=list(data[0].keys()), delimiter=delimiter)
+        file_pointer, fieldnames=list(data[0].keys()), delimiter=delimiter)
 
     writer.writeheader()
     writer.writerows(data)
     del writer
-    fp.close()
+    file_pointer.close()
 
 
 ########################################################################
