@@ -26,10 +26,9 @@ def timeit(func=None, *args, **kwargs):
     Method provides ability to time (theoretically) any method.
     """
 
+    out = sys.stdout
     if 'out' in kwargs:
         out = kwargs['out']
-    else:
-        kwargs = sys.stdout
 
     out.write('\n')
     display_message('PROGRAM STARTED...', post='\n', **kwargs)
@@ -54,10 +53,9 @@ def timeit(func=None, *args, **kwargs):
 
 
 def _display(msg, tag='', **kwargs):
+    out = sys.stdout
     if 'out' in kwargs and kwargs['out']:
         out = kwargs['out']
-    else:
-        out = sys.stdout
 
     if arcpy and 'ERROR' in tag.upper():
         arcpy.AddError(msg)
