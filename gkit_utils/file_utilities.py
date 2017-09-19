@@ -16,12 +16,6 @@ from collections import OrderedDict
 
 from six.moves.configparser import ConfigParser
 
-try:
-    # Python 3
-    FileNotFoundError
-except NameError:
-    # Python 2
-    FileNotFoundError = IOError
 
 ########################################################################
 # Public general file util methods
@@ -103,7 +97,7 @@ def read_json(file_path, encoding='UTF-8', ordered=True):
             kwargs['object_pairs_hook'] = OrderedDict
         with open(file_path, 'r') as file_pointer:
             return_dict = json.load(file_pointer, **kwargs)
-    except (FileNotFoundError, ValueError) as err_msg:
+    except (IOError, ValueError) as err_msg:
         warnings.warn(str(err_msg))
     return return_dict
 
@@ -149,7 +143,7 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
                             col += 1
                         return_list.append(entry_dict)
                     row += 1
-    except FileNotFoundError as err_msg:
+    except IOError as err_msg:
         warnings.warn(str(err_msg))
     return return_list
 
