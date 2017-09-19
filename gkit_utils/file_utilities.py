@@ -212,10 +212,34 @@ def read_section_map(cparser, section):
 
 
 def write(file_path, data, mode='w', **kwargs):
+    """Write to a file.
+
+    [description]
+
+    Arguments:
+        file_path {[type]} -- [description]
+        data {[type]} -- [description]
+        **kwargs {[type]} -- [description]
+
+    Keyword Arguments:
+        mode {str} -- [description] (default: {'w'})
+    """
     write_file(file_path, data, mode, **kwargs)
 
 
 def write_file(file_path, data, mode='w', **kwargs):
+    """Write to a file.
+
+    [description]
+
+    Arguments:
+        file_path {[type]} -- [description]
+        data {[type]} -- [description]
+        **kwargs {[type]} -- [description]
+
+    Keyword Arguments:
+        mode {str} -- [description] (default: {'w'})
+    """
     file_ext = os.path.splitext(file_path.upper())[1]
     if 'JSON' in file_ext:
         write_json(file_path, data, mode=mode, **kwargs)
@@ -227,11 +251,35 @@ def write_file(file_path, data, mode='w', **kwargs):
 
 
 def write_json(file_path, data, mode='w', **kwargs):
+    """Write to a JSON file.
+
+    [description]
+
+    Arguments:
+        file_path {[type]} -- [description]
+        data {[type]} -- [description]
+        **kwargs {[type]} -- [description]
+
+    Keyword Arguments:
+        mode {str} -- [description] (default: {'w'})
+    """
     with open(file_path, mode) as file_pointer:
         json.dump(data, file_pointer, **kwargs)
 
 
 def write_csv(file_path, data, delimiter=',', mode='w'):
+    """Write to a CSV file.
+
+    [description]
+
+    Arguments:
+        file_path {[type]} -- [description]
+        data {[type]} -- [description]
+
+    Keyword Arguments:
+        delimiter {str} -- [description] (default: {','})
+        mode {str} -- [description] (default: {'w'})
+    """
     try:
         file_pointer = open(file_path, mode, newline='')
     except TypeError:
