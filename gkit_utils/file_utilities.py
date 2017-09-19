@@ -12,6 +12,7 @@ import fileinput
 import json
 import os
 import warnings
+from collections import OrderedDict
 
 from six.moves.configparser import ConfigParser
 
@@ -22,15 +23,19 @@ except NameError:
     # Python 2
     FileNotFoundError = IOError
 
-from collections import OrderedDict
-
 ########################################################################
 # Public general file util methods
 ########################################################################
 
 
 def mkdir_p(path):
-    # Function performs cli command: mkdir -p
+    """Recursively make directories.
+
+    Method emulates the Unix mkdir -p.
+
+    Arguments:
+        path {str} -- Path to make directory(ies) to.
+    """
     try:
         os.makedirs(path)
     except OSError as err_msg:  # Python >2.5
@@ -46,10 +51,25 @@ def mkdir_p(path):
 
 
 def read(file_path, **kwargs):
+    """Read a file.
+
+    Wraps read_file() to provide a standard method signature.
+
+    Arguments:
+        file_path {str} -- path of file to read
+    """
     return read_file(file_path, **kwargs)
 
 
 def read_file(file_path, **kwargs):
+    """Read a file.
+
+    Wraps read_json() and read_csv() to read files and provides file type
+    auto-detect.
+
+    Arguments:
+        file_path {str} -- path of file to read
+    """
     file_ext = os.path.splitext(file_path.upper())[1]
 
     if 'JSON' in file_ext:
@@ -62,6 +82,19 @@ def read_file(file_path, **kwargs):
 
 
 def read_json(file_path, encoding='UTF-8', ordered=True):
+    """Read a JSON file.
+
+    Wraps the json.load() method.
+
+    Arguments:
+        file_path {str} -- path of file to read
+
+    Keyword Arguments:
+        encoding {str}  -- encoding to read the file with
+                            (default: {'UTF-8'})
+        ordered {bool}  -- flag to return the file contents in an OrderedDict
+                            (default: {True})
+    """
     kwargs = {}
     return_dict = {}
     try:
@@ -76,6 +109,18 @@ def read_json(file_path, encoding='UTF-8', ordered=True):
 
 
 def read_csv(file_path, delimiter=',', headings=False, **kwargs):
+    """Read a CSV file.
+
+    Emulates csv.DictReader().read() functionality.
+    Probably better to use DictReader/DictWriter than these CSV methods.
+
+    Arguments:
+        file_path {[type]} -- [description]
+
+    Keyword Arguments:
+        delimiter {str} -- [description] (default: {','})
+        headings {bool} -- [description] (default: {False})
+    """
     # [{'r0c1': 'r1c1', 'r0c2': 'r1c2', ... , 'r0cn': 'r1cn'}]
 
     return_list = []
@@ -110,6 +155,17 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 
 
 def read_config(file_path, headings=None, section=0):
+    """Read an INI file.
+
+    [description]
+
+    Arguments:
+        file_path {[type]} -- [description]
+
+    Keyword Arguments:
+        headings {[type]} -- [description] (default: {None})
+        section {number} -- [description] (default: {0})
+    """
     return_dict = {}
     cparser = ConfigParser()
 
@@ -135,6 +191,17 @@ def read_config(file_path, headings=None, section=0):
 
 
 def read_section_map(cparser, section):
+    """Read a section of a ConfigReader object.
+
+    [description]
+
+    Arguments:
+        cparser {[type]} -- [description]
+        section {[type]} -- [description]
+
+    Returns:
+        [type] -- [description]
+    """
     return_dict = {}
     options = cparser.options(section)
     for option in options:
@@ -238,9 +305,23 @@ def write_csv(file_path, data, delimiter=',', mode='w'):
 #             print(line[:-1])
 
 
-def convert_delimiter_inline(base_file, old_delimiter=',', new_delimiter='|'):
-    if os.path.exists(base_file):
-        for line in fileinput.input(files=[base_file], inplace=True):
+def convert_delimiter_inline(file_path, old_delimiter=',', new_delimiter='|'):
+    """Convert file delimiter.
+
+    Method converts all delimiter tokens in a file and makes changes to the
+    file itself.
+
+    Arguments:
+        file_path {str}     -- path of file to convert delimiters
+
+    Keyword Arguments:
+        old_delimiter {str} -- original delimiter
+                                (default: {','})
+        new_delimiter {str} -- desired delimiter
+                                (default: {'|'})
+    """
+    if os.path.exists(file_path):
+        for line in fileinput.input(files=[file_path], inplace=True):
             print((line[:-1].replace(old_delimiter, new_delimiter)))
 
 
