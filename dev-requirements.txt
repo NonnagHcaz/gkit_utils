@@ -1,4 +1,5 @@
 wheel
-coveralls
 coverage
+codecov
+coveralls
 mock

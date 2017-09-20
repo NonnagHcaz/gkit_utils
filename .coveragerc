@@ -1,3 +1,6 @@
+[run]
+source = gkit_utils
+
 [report]
 omit =
     */python?.?/*
