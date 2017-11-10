@@ -51,10 +51,16 @@ def timeit(func=None, *args, **kwargs):
     out.write('Elapsed:\n\t%02d:%02d:%02d\n\n\n' % (hours, mins, secs))
 
 
-def _display(msg, tag='', **kwargs):
+#######################################################################
+# Print methods
+#######################################################################
+
+def _print(msg, tag='', **kwargs):
     out = sys.stdout
     if 'out' in kwargs and kwargs['out']:
         out = kwargs['out']
+
+    msg = '\n' + msg
 
     if arcpy and 'ERROR' in tag.upper():
         arcpy.AddError(msg)
@@ -62,6 +68,134 @@ def _display(msg, tag='', **kwargs):
         arcpy.AddMessage(msg)
     else:
         out.write(msg)
+
+
+def print_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
+    r"""print a divider.
+
+    Method prints a divider.
+
+    Keyword Arguments:
+        token {str}     -- token used to print
+                            (default: {'*'})
+        count {number}  -- divider length
+                            (default: {72})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_divider(token, count, pre, post)
+    _print(p_msg, '', **kwargs)
+
+
+def print_message(msg, tag='', pre='', post='', **kwargs):
+    r"""print a generic message.
+
+    Method prints a generic message.
+
+    Arguments:
+        msg {str} -- message to print
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {''})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_message(msg, tag, pre, post, **kwargs)
+    _print(p_msg, tag, **kwargs)
+
+
+def print_error(msg, tag='ERROR', pre='', post='', **kwargs):
+    r"""print an error message.
+
+    Method prints an error message.
+
+    Arguments:
+        msg {str} -- message to print
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'ERROR'})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_error(msg, tag, pre, post, **kwargs)
+    _print(p_msg, tag, **kwargs)
+
+
+def print_event(msg, tag='EVENT', pre='', post='', **kwargs):
+    r"""print an event message.
+
+    Method prints an event message.
+
+    Arguments:
+        msg {str} -- message to print
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'EVENT'})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_event(msg, tag, pre, post, **kwargs)
+    _print(p_msg, tag, **kwargs)
+
+
+def print_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
+    r"""print a success message.
+
+    Method prints a success message.
+
+    Arguments:
+        msg {str} -- message to print
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'SUCCESS'})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
+    _print(p_msg, tag, **kwargs)
+
+
+def print_startup(msg, tag='STARTUP', pre='', post='\n', **kwargs):
+    r"""print a startup message.
+
+    Method prints a startup message.
+
+    Arguments:
+        msg {str} -- message to print
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'SUCCESS'})
+        pre {str}       -- token to print before message
+                            (default: {'\n'})
+        post {str}      -- token to print after message
+                            (default: {'\n'})
+    """
+    p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
+    _print(p_msg, tag, **kwargs)
+
+
+#######################################################################
+# DEPRECATED: Moving to `print`-prefixed methods
+#######################################################################
+
+
+def _display(msg, tag='', **kwargs):
+    _print(msg, tag, **kwargs)
 
 
 def display_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
@@ -79,8 +213,7 @@ def display_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
         post {str}      -- token to display after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_divider(token, count, pre, post)
-    _display(p_msg, '', **kwargs)
+    print_divider(token, count, pre, post, **kwargs)
 
 
 def display_message(msg, tag='', pre='', post='', **kwargs):
@@ -99,8 +232,7 @@ def display_message(msg, tag='', pre='', post='', **kwargs):
         post {str}      -- token to display after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_message(msg, tag, pre, post, **kwargs)
-    _display(p_msg, tag, **kwargs)
+    print_message(msg, tag, pre, post, **kwargs)
 
 
 def display_error(msg, tag='ERROR', pre='', post='', **kwargs):
@@ -119,8 +251,7 @@ def display_error(msg, tag='ERROR', pre='', post='', **kwargs):
         post {str}      -- token to display after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_error(msg, tag, pre, post, **kwargs)
-    _display(p_msg, tag, **kwargs)
+    print_error(msg, tag, pre, post, **kwargs)
 
 
 def display_event(msg, tag='EVENT', pre='', post='', **kwargs):
@@ -139,8 +270,7 @@ def display_event(msg, tag='EVENT', pre='', post='', **kwargs):
         post {str}      -- token to display after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_event(msg, tag, pre, post, **kwargs)
-    _display(p_msg, tag, **kwargs)
+    print_event(msg, tag, pre, post, **kwargs)
 
 
 def display_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
@@ -159,5 +289,4 @@ def display_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
         post {str}      -- token to display after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
-    _display(p_msg, tag, **kwargs)
+    print_success(msg, tag, pre, post, **kwargs)

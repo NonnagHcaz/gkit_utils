@@ -5,7 +5,30 @@ Module provides helper methods for the print_utilities module.
 
 from __future__ import absolute_import
 
-from . import time_utilities as t_utils
+try:
+    from . import time_utilities as t_utils
+except ValueError:
+    import time_utilities as t_utils
+
+
+def _generate(msg, tag='', pre='', post='', **kwargs):
+    div = False
+    if tag:
+        if tag.upper() in 'DIVIDER':
+            ftag = ''
+            div = True
+        else:
+            ftag = generate_tag_head(tag)
+    else:
+        ftag = ' '
+
+    if not div and ('stamped' not in kwargs or not kwargs['stamped']) and t_utils:
+        timestamp = generate_tag_string(t_utils.get_timestamp())
+    else:
+        timestamp = ''
+
+    p_msg = timestamp + str(ftag) + str(pre) + str(msg) + str(post)
+    return p_msg
 
 
 def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
@@ -102,26 +125,6 @@ def generate_message(msg, tag='', pre='', post='', **kwargs):
                             (default: {'\n'})
     """
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
-
-
-def _generate(msg, tag='', pre='', post='', **kwargs):
-    div = False
-    if tag:
-        if tag.upper() in 'DIVIDER':
-            ftag = ''
-            div = True
-        else:
-            ftag = generate_tag_head(tag)
-    else:
-        ftag = ' '
-
-    if not div and 'stamped' in kwargs and kwargs['stamped'] and t_utils:
-        timestamp = generate_tag_string(t_utils.get_timestamp())
-    else:
-        timestamp = ''
-
-    p_msg = timestamp + str(ftag) + str(pre) + str(msg) + str(post)
-    return p_msg
 
 
 def generate_tag_head(msg, sep=':', pre='[', post=']'):
