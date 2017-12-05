@@ -8,12 +8,6 @@ Written by Zachary Gannon.
 
 ---
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/raiq3oRu2yGcVNAnbBGftY8G/gannon93/gkit_utils'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/raiq3oRu2yGcVNAnbBGftY8G/gannon93/gkit_utils.svg' />
-</a>
-
----
-
 DESCRIPTION:
 ------------
 
