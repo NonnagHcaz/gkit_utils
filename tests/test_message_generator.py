@@ -55,7 +55,7 @@ class MessageGeneratorTests(unittest.TestCase):
         tag = '[STARTUP]: '
 
         msg = mg.generate_startup(DEFAULT_MSG, stamped=False)
-        self.assertEqual(tag + DEFAULT_MSG + '\n', msg)
+        self.assertEqual(tag + DEFAULT_MSG, msg)
 
     def test_generate_tag_string(self):
         pre = '['

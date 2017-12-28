@@ -46,14 +46,18 @@ class PrintUtilitiesTests(unittest.TestCase):
     #     'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     # def test_timeit(self, mfunc):
     #     tag = (
-    #         '[{ts}] PROGRAM STARTED...\n\n************************************'
-    #         '************************************\n\n*************************'
-    #         '***********************************************\n[{ts}] PROGRAM E'
-    #         'NDED.\nElapsed:\n\t00:00:{secs}').format(
+    #         '[{ts}][STARTUP]: PROGRAM STARTED...\n\n**************************'
+    #         '**********************************************\n\n***************'
+    #         '*********************************************************\n\n'
+    #         '[{ts}] PROGRAM ENDED.\nElapsed:\n\t00:00:{secs}').format(
     #             ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
 
-    #     func = dummy
-    #     p_utils.timeit(func, out=self.out, stamped=True)
+    #     p_utils.timeit(func=dummy, out=self.out, stamped=True)
+    #     print('\n' + '#' * 72 + '\n')
+    #     print(self.out.getvalue().strip())
+    #     print('\n' + '#' * 72 + '\n')
+    #     print(tag)
+    #     print('\n' + '#' * 72 + '\n')
     #     self.assertEqual(tag, self.out.getvalue().strip())
 
     def test_print_divider(self):
@@ -113,5 +117,5 @@ class PrintUtilitiesTests(unittest.TestCase):
             DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
             DEFAULT_PRE + 'STARTUP' + DEFAULT_POST + DEFAULT_SEP + ' ')
 
-        p_utils.print_startup(DEFAULT_MSG, post='', out=self.out, stamped=True)
+        p_utils.print_startup(DEFAULT_MSG, out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())

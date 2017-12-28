@@ -108,7 +108,7 @@ def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
-def generate_startup(msg, tag='STARTUP', pre='', post='\n', **kwargs):
+def generate_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
     r"""Generate a success message.
 
     Method generates a success message.

@@ -20,35 +20,35 @@ from . import message_generator as msg_gen
 from . import time_utilities as t_utils
 
 
-def timeit(func=None, *args, **kwargs):
-    """Time a function.
+# def timeit(func=None, *args, **kwargs):
+#     """Time a function.
 
-    Method provides ability to time (theoretically) any method.
-    """
-    out = sys.stdout
-    if 'out' in kwargs:
-        out = kwargs['out']
+#     Method provides ability to time (theoretically) any method.
+#     """
+#     out = sys.stdout
+#     if 'out' in kwargs:
+#         out = kwargs['out']
 
-    out.write('\n')
-    print_message('PROGRAM STARTED...', post='\n', **kwargs)
-    print_divider(**kwargs)
-    start_time = time.time()
-    if func is not None:
-        func(*args, **kwargs)
-    end_time = time.time()
-    print_divider(**kwargs)
-    print_message('PROGRAM ENDED.', post='\n', **kwargs)
-    elapsed = t_utils.get_elapsed(start_time, end_time)
+#     out.write('\n')
+#     print_startup('PROGRAM STARTED...', **kwargs)
+#     print_divider(**kwargs)
+#     start_time = time.time()
+#     if func is not None:
+#         func(*args, **kwargs)
+#     end_time = time.time()
+#     print_divider(**kwargs)
+#     print_message('PROGRAM ENDED.', post='\n', **kwargs)
+#     elapsed = t_utils.get_elapsed(start_time, end_time)
 
-    secs = float(elapsed)
+#     secs = float(elapsed)
 
-    hours = secs // 3600
-    secs -= 3600 * hours
+#     hours = secs // 3600
+#     secs -= 3600 * hours
 
-    mins = secs // 60
-    secs -= 60 * mins
+#     mins = secs // 60
+#     secs -= 60 * mins
 
-    out.write('Elapsed:\n\t%02d:%02d:%02d\n\n\n' % (hours, mins, secs))
+#     out.write('Elapsed:\n\t%02d:%02d:%02d\n\n\n' % (hours, mins, secs))
 
 
 #######################################################################
@@ -169,7 +169,7 @@ def print_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
     _print(p_msg, tag, **kwargs)
 
 
-def print_startup(msg, tag='STARTUP', pre='', post='\n', **kwargs):
+def print_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
     r"""print a startup message.
 
     Method prints a startup message.
