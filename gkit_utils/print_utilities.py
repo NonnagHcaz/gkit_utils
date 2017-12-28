@@ -30,15 +30,15 @@ def timeit(func=None, *args, **kwargs):
         out = kwargs['out']
 
     out.write('\n')
-    display_message('PROGRAM STARTED...', post='\n', **kwargs)
-    display_divider(**kwargs)
+    print_message('PROGRAM STARTED...', post='\n', **kwargs)
+    print_divider(**kwargs)
     start_time = time.time()
     if func is not None:
         func(*args, **kwargs)
     end_time = time.time()
-    display_divider(**kwargs)
-    display_message('PROGRAM ENDED.', post='\n', **kwargs)
-    elapsed = t_utils.elapsed(start_time, end_time)
+    print_divider(**kwargs)
+    print_message('PROGRAM ENDED.', post='\n', **kwargs)
+    elapsed = t_utils.get_elapsed(start_time, end_time)
 
     secs = float(elapsed)
 
