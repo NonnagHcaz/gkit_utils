@@ -49,26 +49,3 @@ def get_elapsed(start, end, pre='0', post='4'):
     f_str = ''.join(['{', str(pre), ':.', str(post), 'f}'])
     e_str = round((end - start), int(post))
     return f_str.format(e_str)
-
-
-def elapsed(start, end, pre='0', post='4'):
-    """Elapsed time calculator.
-
-    !DEPRECATED! Use get_elapsed() with same params.
-    Method computes the difference between two datetime.datetime objects,
-    and returns the difference as a string.
-
-    Arguments:
-        start {datetime}    -- start time
-        end {datetime}      -- end time
-
-    Keyword Arguments:
-        pre {str}   -- leading 0's
-                        (default: {'0'})
-        post {str}  -- precision
-                        (default: {'4'})
-
-    Returns:
-        {str} -- elapsed time
-    """
-    return get_elapsed(start, end, pre, post)

@@ -67,32 +67,51 @@ class PrintUtilitiesTests(unittest.TestCase):
 
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
-    def test_print_message_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + DEFAULT_MSG + DEFAULT_POST + DEFAULT_SEP + ' '
+    def test_print_message(self, mfunc):
+        tag = (
+            DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
+            DEFAULT_PRE + DEFAULT_MSG + DEFAULT_POST + DEFAULT_SEP + ' ')
 
-        p_utils.print_message(DEFAULT_MSG, tag=DEFAULT_MSG, out=self.out)
+        p_utils.print_message(
+            DEFAULT_MSG, tag=DEFAULT_MSG, out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
-    def test_print_event_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + 'EVENT' + DEFAULT_POST + DEFAULT_SEP + ' '
+    def test_print_event(self, mfunc):
+        tag = (
+            DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
+            DEFAULT_PRE + 'EVENT' + DEFAULT_POST + DEFAULT_SEP + ' ')
 
-        p_utils.print_event(DEFAULT_MSG, out=self.out)
+        p_utils.print_event(DEFAULT_MSG, out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
-    def test_print_error_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + 'ERROR' + DEFAULT_POST + DEFAULT_SEP + ' '
+    def test_print_error(self, mfunc):
+        tag = (
+            DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
+            DEFAULT_PRE + 'ERROR' + DEFAULT_POST + DEFAULT_SEP + ' ')
 
-        p_utils.print_error(DEFAULT_MSG, out=self.out)
+        p_utils.print_error(DEFAULT_MSG, out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
-    def test_print_success_no_stamp(self, mfunc):
-        tag = DEFAULT_PRE + 'SUCCESS' + DEFAULT_POST + DEFAULT_SEP + ' '
+    def test_print_success(self, mfunc):
+        tag = (
+            DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
+            DEFAULT_PRE + 'SUCCESS' + DEFAULT_POST + DEFAULT_SEP + ' ')
 
-        p_utils.print_success(DEFAULT_MSG, post='', out=self.out)
+        p_utils.print_success(DEFAULT_MSG, post='', out=self.out, stamped=True)
+        self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
+
+    @mock.patch(
+        'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
+    def test_print_startup(self, mfunc):
+        tag = (
+            DEFAULT_PRE + MOCK_TIMESTAMP + DEFAULT_POST +
+            DEFAULT_PRE + 'STARTUP' + DEFAULT_POST + DEFAULT_SEP + ' ')
+
+        p_utils.print_startup(DEFAULT_MSG, post='', out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())

@@ -108,6 +108,25 @@ def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
     return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
 
 
+def generate_startup(msg, tag='STARTUP', pre='', post='\n', **kwargs):
+    r"""Generate a success message.
+
+    Method generates a success message.
+
+    Arguments:
+        msg {str}       -- message to generate
+
+    Keyword Arguments:
+        tag {str}       -- tag to denote type of message
+                            (default: {'STARTUP'})
+        pre {str}       -- token to generate before message
+                            (default: {'\n'})
+        post {str}      -- token to generate after message
+                            (default: {'\n'})
+    """
+    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+
+
 def generate_message(msg, tag='', pre='', post='', **kwargs):
     r"""Generate a generic message.
 

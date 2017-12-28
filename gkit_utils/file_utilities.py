@@ -123,8 +123,6 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
 
             row = 0
             heads = []
-            if 'heads_list' in kwargs:
-                heads = kwargs['heads_list']
 
             for line_in in file_pointer:
                 entry_dict = {}
