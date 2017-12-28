@@ -81,17 +81,27 @@ class FileUtilitiesTests(unittest.TestCase):
     # Unit tests for read_config()
     ###########################################################################
 
-    def test_read_config(self):
+    def test_read_config_single_section(self):
         test_dict = {'a': '1', 'b': '2', 'c': 'd'}
         self.assertEqual(
             test_dict,
-            f_utils.read_config(os.path.join(DATA_DIR, 'test_ini.ini')))
+            f_utils.read_config(
+                os.path.join(DATA_DIR, 'test_ini.ini'), section='config1'))
 
-    @mock.patch('warnings.warn')
-    def test_read_config_bad(self, mfunc):
-        test_heads = ['a', 'b', 'd']
-        f_utils.read_config(os.path.join(DATA_DIR, 'test_ini.ini'), test_heads)
-        self.assertTrue(mfunc.called)
+    def test_read_coinfig_multi_section(self):
+        test_dict1 = {'a': '1', 'b': '2', 'c': 'd'}
+
+        self.assertEqual(
+            test_dict1,
+            f_utils.read_config(
+                os.path.join(DATA_DIR, 'test_ini.ini'), section='config1'))
+
+        test_dict2 = {'e': '3', 'f': '4', 'g': 'h'}
+
+        self.assertEqual(
+            test_dict2,
+            f_utils.read_config(
+                os.path.join(DATA_DIR, 'test_ini.ini'), section='config2'))
 
     ###########################################################################
     # Unit tests for read_json()

@@ -148,7 +148,7 @@ def read_csv(file_path, delimiter=',', headings=False, **kwargs):
     return return_list
 
 
-def read_config(file_path, headings=None, section=0):
+def read_config(file_path, section):
     """Read an INI file.
 
     [description]
@@ -166,15 +166,12 @@ def read_config(file_path, headings=None, section=0):
     # Initialize ConfigReader object
     cparser.read(file_path)
 
-    # Get sections in config file
-    sections = cparser.sections()
-
     # Get mapping of specific section
-    section_map = read_section_map(cparser, sections[section])
+    section_map = read_section_map(cparser, section)
 
     # Get only the values we need
-    if not headings:
-        headings = list(section_map.keys())
+    headings = list(section_map.keys())
+
     for key in headings:
         try:
             return_dict[key] = section_map[key.lower()]
