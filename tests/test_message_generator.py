@@ -18,7 +18,6 @@ class MessageGeneratorTests(unittest.TestCase):
         msg = mg.generate_divider(token=token, count=count, pre=pre, post=post)
         self.assertEqual(tag, msg)
 
-    @unittest.skip
     def test_generate_message_no_stamp(self):
         pre = '['
         post = ']'
@@ -28,21 +27,18 @@ class MessageGeneratorTests(unittest.TestCase):
         msg = mg.generate_message(DEFAULT_MSG, tag=DEFAULT_MSG, stamped=False)
         self.assertEqual(tag + DEFAULT_MSG, msg)
 
-    @unittest.skip
     def test_generate_event_no_stamp(self):
         tag = '[EVENT]: '
 
         msg = mg.generate_event(DEFAULT_MSG, stamped=False)
         self.assertEqual(tag + DEFAULT_MSG, msg)
 
-    @unittest.skip
     def test_generate_error_no_stamp(self):
         tag = '[ERROR]: '
 
         msg = mg.generate_error(DEFAULT_MSG, stamped=False)
         self.assertEqual(tag + DEFAULT_MSG, msg)
 
-    @unittest.skip
     def test_generate_success_no_stamp(self):
         tag = '[SUCCESS]: '
 

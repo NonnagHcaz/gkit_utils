@@ -42,20 +42,19 @@ class PrintUtilitiesTests(unittest.TestCase):
     def tearDown(self):
         del self.out
 
-    @unittest.skip
-    @mock.patch(
-        'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
-    def test_timeit(self, mfunc):
-        tag = (
-            '[{ts}] PROGRAM STARTED...\n\n************************************'
-            '************************************\n\n*************************'
-            '***********************************************\n[{ts}] PROGRAM E'
-            'NDED.\nElapsed:\n\t00:00:{secs}').format(
-                ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
+    # @mock.patch(
+    #     'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
+    # def test_timeit(self, mfunc):
+    #     tag = (
+    #         '[{ts}] PROGRAM STARTED...\n\n************************************'
+    #         '************************************\n\n*************************'
+    #         '***********************************************\n[{ts}] PROGRAM E'
+    #         'NDED.\nElapsed:\n\t00:00:{secs}').format(
+    #             ts=MOCK_TIMESTAMP, secs=str(TEST_SLEEP).zfill(2))
 
-        func = dummy
-        p_utils.timeit(func, out=self.out, stamped=True)
-        self.assertEqual(tag, self.out.getvalue().strip())
+    #     func = dummy
+    #     p_utils.timeit(func, out=self.out, stamped=True)
+    #     self.assertEqual(tag, self.out.getvalue().strip())
 
     def test_print_divider(self):
         token = '*'
@@ -66,7 +65,6 @@ class PrintUtilitiesTests(unittest.TestCase):
             token=token, count=count, pre='', post='', out=self.out)
         self.assertEqual(tag, self.out.getvalue().strip())
 
-    @unittest.skip
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_print_message_no_stamp(self, mfunc):
@@ -75,7 +73,6 @@ class PrintUtilitiesTests(unittest.TestCase):
         p_utils.print_message(DEFAULT_MSG, tag=DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
-    @unittest.skip
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_print_event_no_stamp(self, mfunc):
@@ -84,7 +81,6 @@ class PrintUtilitiesTests(unittest.TestCase):
         p_utils.print_event(DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
-    @unittest.skip
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_print_error_no_stamp(self, mfunc):
@@ -93,7 +89,6 @@ class PrintUtilitiesTests(unittest.TestCase):
         p_utils.print_error(DEFAULT_MSG, out=self.out)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
-    @unittest.skip
     @mock.patch(
         'gkit_utils.time_utilities.get_timestamp', return_value=MOCK_TIMESTAMP)
     def test_print_success_no_stamp(self, mfunc):

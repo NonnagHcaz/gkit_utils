@@ -22,7 +22,7 @@ def _generate(msg, tag='', pre='', post='', **kwargs):
     else:
         ftag = ' '
 
-    if not div and ('stamped' not in kwargs or not kwargs['stamped']) and t_utils:
+    if not div and ('stamped' in kwargs and kwargs['stamped']) and t_utils:
         timestamp = generate_tag_string(t_utils.get_timestamp())
     else:
         timestamp = ''
