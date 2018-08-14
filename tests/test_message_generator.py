@@ -19,10 +19,8 @@ class MessageGeneratorTests(unittest.TestCase):
         self.assertEqual(tag, msg)
 
     def test_generate_message_no_stamp_no_tag(self):
-        tag = ' '
-
         msg = mg.generate_message(DEFAULT_MSG, stamped=False)
-        self.assertEqual(tag + DEFAULT_MSG, msg)
+        self.assertEqual(DEFAULT_MSG, msg)
 
     def test_generate_message_no_stamp(self):
         pre = '['
@@ -30,7 +28,8 @@ class MessageGeneratorTests(unittest.TestCase):
         sep = ':'
         tag = pre + DEFAULT_MSG + post + sep + ' '
 
-        msg = mg.generate_message(DEFAULT_MSG, tag=DEFAULT_MSG, stamped=False)
+        msg = mg.generate_message(
+            DEFAULT_MSG, tags=[DEFAULT_MSG], stamped=False)
         self.assertEqual(tag + DEFAULT_MSG, msg)
 
     def test_generate_event_no_stamp(self):
@@ -68,8 +67,8 @@ class MessageGeneratorTests(unittest.TestCase):
     def test_generate_tag_head(self):
         pre = '['
         post = ']'
-        sep = ':'
-        tag = pre + DEFAULT_MSG + post + sep + ' '
+        sep = ': '
+        tag = pre + DEFAULT_MSG + post + sep
 
         msg = mg.generate_tag_head(DEFAULT_MSG, pre=pre, post=post, sep=sep)
         self.assertEqual(tag, msg)

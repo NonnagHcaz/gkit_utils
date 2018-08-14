@@ -1,7 +1,7 @@
 """Print Utilities.
 
 Module provides methods to display messages with timestamps,
-message type tags, and dividers.
+message type tagss, and dividers.
 """
 
 from __future__ import absolute_import
@@ -11,10 +11,10 @@ from __future__ import print_function
 import sys
 import time
 
-try:
-    import arcpy
-except ImportError:
-    arcpy = None
+# try:
+#     import arcpy
+# except ImportError:
+#     arcpy = None
 
 from . import message_generator as msg_gen
 from . import time_utilities as t_utils
@@ -55,19 +55,19 @@ from . import time_utilities as t_utils
 # Print methods
 #######################################################################
 
-def _print(msg, tag='', **kwargs):
+def _print(msg, **kwargs):
     out = sys.stdout
     if 'out' in kwargs and kwargs['out']:
         out = kwargs['out']
 
-    msg = '\n' + msg
+    msg = msg + '\n'
 
-    if arcpy and 'ERROR' in tag.upper():
-        arcpy.AddError(msg)
-    elif arcpy:
-        arcpy.AddMessage(msg)
-    else:
-        out.write(msg)
+    # if arcpy and 'ERROR' in tag.upper():
+    #     arcpy.AddError(msg)
+    # elif arcpy:
+    #     arcpy.AddMessage(msg)
+    # else:
+    out.write(msg)
 
 
 def print_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
@@ -86,10 +86,10 @@ def print_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
                             (default: {'\n'})
     """
     p_msg = msg_gen.generate_divider(token, count, pre, post)
-    _print(p_msg, '', **kwargs)
+    _print(p_msg, **kwargs)
 
 
-def print_message(msg, tag='', pre='', post='', **kwargs):
+def print_message(msg, tags=[''], pre='', post='', **kwargs):
     r"""print a generic message.
 
     Method prints a generic message.
@@ -98,18 +98,18 @@ def print_message(msg, tag='', pre='', post='', **kwargs):
         msg {str} -- message to print
 
     Keyword Arguments:
-        tag {str}       -- tag to denote type of message
+        tags {str}       -- tags to denote type of message
                             (default: {''})
         pre {str}       -- token to print before message
                             (default: {'\n'})
         post {str}      -- token to print after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_message(msg, tag, pre, post, **kwargs)
-    _print(p_msg, tag, **kwargs)
+    p_msg = msg_gen.generate_message(msg, tags, pre, post, **kwargs)
+    _print(p_msg, **kwargs)
 
 
-def print_error(msg, tag='ERROR', pre='', post='', **kwargs):
+def print_error(msg, tags=['ERROR'], pre='', post='', **kwargs):
     r"""print an error message.
 
     Method prints an error message.
@@ -118,18 +118,18 @@ def print_error(msg, tag='ERROR', pre='', post='', **kwargs):
         msg {str} -- message to print
 
     Keyword Arguments:
-        tag {str}       -- tag to denote type of message
+        tags {str}       -- tags to denote type of message
                             (default: {'ERROR'})
         pre {str}       -- token to print before message
                             (default: {'\n'})
         post {str}      -- token to print after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_error(msg, tag, pre, post, **kwargs)
-    _print(p_msg, tag, **kwargs)
+    p_msg = msg_gen.generate_error(msg, tags, pre, post, **kwargs)
+    _print(p_msg, **kwargs)
 
 
-def print_event(msg, tag='EVENT', pre='', post='', **kwargs):
+def print_event(msg, tags=['EVENT'], pre='', post='', **kwargs):
     r"""print an event message.
 
     Method prints an event message.
@@ -138,18 +138,18 @@ def print_event(msg, tag='EVENT', pre='', post='', **kwargs):
         msg {str} -- message to print
 
     Keyword Arguments:
-        tag {str}       -- tag to denote type of message
+        tags {str}       -- tags to denote type of message
                             (default: {'EVENT'})
         pre {str}       -- token to print before message
                             (default: {'\n'})
         post {str}      -- token to print after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_event(msg, tag, pre, post, **kwargs)
-    _print(p_msg, tag, **kwargs)
+    p_msg = msg_gen.generate_event(msg, tags, pre, post, **kwargs)
+    _print(p_msg, **kwargs)
 
 
-def print_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
+def print_success(msg, tags=['SUCCESS'], pre='', post='', **kwargs):
     r"""print a success message.
 
     Method prints a success message.
@@ -158,18 +158,18 @@ def print_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
         msg {str} -- message to print
 
     Keyword Arguments:
-        tag {str}       -- tag to denote type of message
+        tags {str}       -- tags to denote type of message
                             (default: {'SUCCESS'})
         pre {str}       -- token to print before message
                             (default: {'\n'})
         post {str}      -- token to print after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_success(msg, tag, pre, post, **kwargs)
-    _print(p_msg, tag, **kwargs)
+    p_msg = msg_gen.generate_success(msg, tags, pre, post, **kwargs)
+    _print(p_msg, **kwargs)
 
 
-def print_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
+def print_startup(msg, tags=['STARTUP'], pre='', post='', **kwargs):
     r"""print a startup message.
 
     Method prints a startup message.
@@ -178,12 +178,12 @@ def print_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
         msg {str} -- message to print
 
     Keyword Arguments:
-        tag {str}       -- tag to denote type of message
+        tags {str}       -- tags to denote type of message
                             (default: {'SUCCESS'})
         pre {str}       -- token to print before message
                             (default: {'\n'})
         post {str}      -- token to print after message
                             (default: {'\n'})
     """
-    p_msg = msg_gen.generate_startup(msg, tag, pre, post, **kwargs)
-    _print(p_msg, tag, **kwargs)
+    p_msg = msg_gen.generate_startup(msg, tags, pre, post, **kwargs)
+    _print(p_msg, **kwargs)

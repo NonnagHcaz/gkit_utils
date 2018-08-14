@@ -77,7 +77,7 @@ class PrintUtilitiesTests(unittest.TestCase):
             DEFAULT_PRE + DEFAULT_MSG + DEFAULT_POST + DEFAULT_SEP + ' ')
 
         p_utils.print_message(
-            DEFAULT_MSG, tag=DEFAULT_MSG, out=self.out, stamped=True)
+            DEFAULT_MSG, tags=[DEFAULT_MSG], out=self.out, stamped=True)
         self.assertEqual(tag + DEFAULT_MSG, self.out.getvalue().strip())
 
     @mock.patch(

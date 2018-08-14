@@ -11,18 +11,11 @@ except ValueError:
     import time_utilities as t_utils
 
 
-def _generate(msg, tag='', pre='', post='', **kwargs):
+def _generate(msg, tags=[], pre='', post='', **kwargs):
     div = False
-    if tag:
-        if tag.upper() in 'DIVIDER':
-            ftag = ''
-            div = True
-        else:
-            ftag = generate_tag_head(tag)
-    else:
-        ftag = ' '
+    ftag = generate_tag_head(tags)
 
-    if not div and ('stamped' in kwargs and kwargs['stamped']) and t_utils:
+    if not div and not ('stamped' in kwargs and not kwargs['stamped']) and t_utils:
         timestamp = generate_tag_string(t_utils.get_timestamp())
     else:
         timestamp = ''
@@ -48,10 +41,10 @@ def generate_divider(token='*', count=72, pre='\n', post='\n', **kwargs):
     """
     msg = token * count
     kwargs['stamped'] = False
-    return _generate(msg=msg, tag='DIVIDER', pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=[], pre=pre, post=post, **kwargs)
 
 
-def generate_error(msg, tag='ERROR', pre='', post='', **kwargs):
+def generate_error(msg, tags=['ERROR'], pre='', post='', **kwargs):
     r"""Generate an error message.
 
     Method generates an error message.
@@ -67,10 +60,10 @@ def generate_error(msg, tag='ERROR', pre='', post='', **kwargs):
         post {str}      -- token to generate after message
                             (default: {'\n'})
     """
-    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=tags, pre=pre, post=post, **kwargs)
 
 
-def generate_event(msg, tag='EVENT', pre='', post='', **kwargs):
+def generate_event(msg, tags=['EVENT'], pre='', post='', **kwargs):
     r"""Generate an event message.
 
     Method generates an event message.
@@ -86,10 +79,10 @@ def generate_event(msg, tag='EVENT', pre='', post='', **kwargs):
         post {str}      -- token to generate after message
                             (default: {'\n'})
     """
-    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=tags, pre=pre, post=post, **kwargs)
 
 
-def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
+def generate_success(msg, tags=['SUCCESS'], pre='', post='\n', **kwargs):
     r"""Generate a success message.
 
     Method generates a success message.
@@ -105,10 +98,10 @@ def generate_success(msg, tag='SUCCESS', pre='', post='\n', **kwargs):
         post {str}      -- token to generate after message
                             (default: {'\n'})
     """
-    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=tags, pre=pre, post=post, **kwargs)
 
 
-def generate_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
+def generate_startup(msg, tags=['STARTUP'], pre='', post='', **kwargs):
     r"""Generate a success message.
 
     Method generates a success message.
@@ -124,10 +117,10 @@ def generate_startup(msg, tag='STARTUP', pre='', post='', **kwargs):
         post {str}      -- token to generate after message
                             (default: {'\n'})
     """
-    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=tags, pre=pre, post=post, **kwargs)
 
 
-def generate_message(msg, tag='', pre='', post='', **kwargs):
+def generate_message(msg, tags=[], pre='', post='', **kwargs):
     r"""Generate a generic message.
 
     Method generates a generic message.
@@ -143,10 +136,10 @@ def generate_message(msg, tag='', pre='', post='', **kwargs):
         post {str}      -- token to generate after message
                             (default: {'\n'})
     """
-    return _generate(msg=msg, tag=tag, pre=pre, post=post, **kwargs)
+    return _generate(msg=msg, tags=tags, pre=pre, post=post, **kwargs)
 
 
-def generate_tag_head(msg, sep=':', pre='[', post=']'):
+def generate_tag_head(msgs, sep=': ', pre='[', post=']'):
     r"""Generate a tag head string.
 
     Method formats a tag string as a header.
@@ -162,7 +155,12 @@ def generate_tag_head(msg, sep=':', pre='[', post=']'):
         post {str}  -- right bounding token for tag item
                         (default: {']'})
     """
-    return generate_tag_string(msg, pre, post) + str(sep) + ' '
+
+    if isinstance(msgs, str):
+        msgs = [msgs]
+
+    tags = [generate_tag_string(msg, pre, post) for msg in msgs]
+    return ''.join(tags) + str(sep) if len(tags) else ''
 
 
 def generate_tag_string(msg, pre='[', post=']'):
