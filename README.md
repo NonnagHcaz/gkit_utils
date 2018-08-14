@@ -1,7 +1,7 @@
 Gannon Toolkit Library - Utilities (gkit_utils)
 =================================
 
-[![Travis - Linux](https://img.shields.io/travis/NonnagHcaz/gkit_utils.svg?label=Linux%20Status)](https://travis-ci.org/NonnagHcaz/gkit_utils) [![AppVeyor - Windows](https://img.shields.io/appveyor/ci/Gannon93/gkit-utils.svg?label=Windows%20Status)](https://ci.appveyor.com/project/Gannon93/gkit-utils)  
+[![Travis - Linux](https://img.shields.io/travis/NonnagHcaz/gkit_utils.svg?label=Linux%20Status)](https://travis-ci.org/NonnagHcaz/gkit_utils) [![AppVeyor - Windows](https://img.shields.io/appveyor/ci/NonnagHcaz/gkit-utils.svg?label=Windows%20Status)](https://ci.appveyor.com/project/NonnagHcaz/gkit-utils)  
 [![Codecov](https://img.shields.io/codecov/c/github/NonnagHcaz/gkit_utils.svg?label=Coverage)](https://codecov.io/github/NonnagHcaz/gkit_utils?branch=master) [![Code Health](https://landscape.io/github/NonnagHcaz/gkit_utils/master/landscape.svg?style=flat&label=Health)](https://landscape.io/github/NonnagHcaz/gkit_utils/master)  
 
 Written by Zachary Gannon.   
