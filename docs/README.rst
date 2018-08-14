@@ -1,8 +1,8 @@
-Gannon Toolkit Library - Utilities (gkit\_utils)
-================================================
+Gannon Toolkit Library - Utilities (gkit_utils)
+===============================================
 
-| |Travis| |AppVeyor|
-| |Coveralls|
+| |Travis| |Appveyor|
+| |Codecov| |Landscape|
 
 Written by Zachary Gannon.
 
@@ -70,14 +70,13 @@ KNOWN BUGS:
 TODO:
 -----
 
--  Write gist
+-  Write docs
 
-.. |Travis| image:: https://img.shields.io/travis/gannon93/gkit_utils.svg?label=Linux%20Status
-   :target: https://travis-ci.org/gannon93/gkit_utils
-   :alt: Travis - Linux
-.. |AppVeyor| image:: https://img.shields.io/appveyor/ci/Gannon93/gkit-utils.svg?label=Windows%20Status
-   :target: https://ci.appveyor.com/project/Gannon93/gkit-utils
-   :alt: Appveyor - Windows
-.. |Coveralls| image:: https://img.shields.io/coveralls/gannon93/gkit_utils.svg?label=Code%20Coverage
-   :target: https://coveralls.io/github/gannon93/gkit_utils?branch=master
-   :alt: Coveralls
+.. |Travis| image:: https://img.shields.io/travis/NonnagHcaz/gkit_utils.svg?label=Linux%20Status
+   :target: https://travis-ci.org/NonnagHcaz/gkit_utils
+.. |Appveyor| image:: https://img.shields.io/appveyor/ci/NonnagHcaz/gkit-utils.svg?label=Windows%20Status
+   :target: https://ci.appveyor.com/project/NonnagHcaz/gkit-utils
+.. |Codecov| image:: https://img.shields.io/codecov/c/github/NonnagHcaz/gkit_utils.svg?label=Coverage
+   :target: https://codecov.io/github/NonnagHcaz/gkit_utils?branch=master
+.. |Landscape| image:: https://landscape.io/github/NonnagHcaz/gkit_utils/master/landscape.svg?style=flat&label=Health
+   :target: https://landscape.io/github/NonnagHcaz/gkit_utils/master
